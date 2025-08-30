@@ -1,10 +1,14 @@
 const load_articles = async () => {
     const res = await fetch(`/data/articles.json`);
-    return await res.json();
+    const articles = await res.json();
+    return articles;
 };
 
-let ARTICLES = load_articles();
-console.log(ARTICLES);
+let ARTICLES = [];
+load_articles().then(data => {
+    ARTICLES = data;
+    init();
+});
 
 const cardHTML = ({ title, desc, img, date, slug}) => `
     <article class="card" onclick="location.href='${slug}'" style="cursor: pointer;">

@@ -73,7 +73,8 @@ function main() {
     const title = extractTitle({ data, body });
     const slug = path.basename(absPath, path.extname(absPath));
     const date = data.date || gitLatestCommitISO(rel) || null;
-    return { title, slug, path: rel, date };
+    const author = data.author || '';
+    return { title, slug, path: rel, date, author };
   }).sort((a, b) => {
     if (!a.date && !b.date) return 0;
     if (!a.date) return 1;

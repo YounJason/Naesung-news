@@ -1,0 +1,26 @@
+@font-face{font-family:'NanumSquareL';src: local('NanumSquareL'), url('/fonts/NanumSquareL.ttf') format('truetype');}
+@font-face{font-family:'NanumSquareR';src: local('NanumSquareR'), url('/fonts/NanumSquareR.ttf') format('truetype');}
+@font-face{font-family:'NanumSquareB';src: local('NanumSquareB'), url('/fonts/NanumSquareB.ttf') format('truetype');}
+@font-face{font-family:'NanumSquareEB';src: local('NanumSquareEB'), url('/fonts/NanumSquareEB.ttf') format('truetype');}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(45deg,
+            #03A65A 0,
+            #03A65A calc(100% - 60px),
+            #030A8C calc(100% - 60px) calc(100% - 40px),
+            #F2E205 calc(100% - 40px) calc(100% - 20px),
+            #D9043D calc(100% - 20px) 100%);
+    color: white;
+    z-index: 1;
+    font-size: 30px;
+    font-family: 'NanumSquareEB', sans-serif;
+    padding : 10px;
+}
+
+body {
+    padding-top: 50px;
+}

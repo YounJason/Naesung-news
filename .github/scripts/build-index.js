@@ -4,7 +4,7 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 const CONTENT_DIR = path.join(process.cwd(), 'articles');
-const OUTPUT_FILE = path.join(process.cwd(), 'data', 'index.json');
+const OUTPUT_FILE = path.join(process.cwd(), 'data', 'articles.json');
 
 function walk(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });

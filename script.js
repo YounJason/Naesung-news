@@ -20,7 +20,9 @@ const cardHTML = ({ title, desc, img, date, slug}) => `
 
 function init() {
     const grid = document.querySelector(".news-grid");
-    grid.innerHTML += ARTICLES.map(cardHTML).join("");
+    for (const article of ARTICLES) {
+        grid.innerHTML += cardHTML(article);
+    }
 }
 
 window.addEventListener("DOMContentLoaded", init);

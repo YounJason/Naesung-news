@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const CONTENT_DIR = path.join(process.cwd(), 'content');
+const CONTENT_DIR = path.join(process.cwd(), 'articles');
 const OUTPUT_FILE = path.join(process.cwd(), 'data', 'index.json');
 
 function walk(dir) {

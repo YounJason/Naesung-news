@@ -74,7 +74,9 @@ function main() {
     const slug = path.basename(absPath, path.extname(absPath));
     const date = data.date || gitLatestCommitISO(rel) || null;
     const author = data.author || '';
-    return { title, slug, path: rel, date, author };
+    const img = data.img || '';
+    const desc = body.trim().replace(/\s+/g, ' ').slice(0, 100);
+    return { title, slug, path: rel, date, author, img, desc };
   }).sort((a, b) => {
     if (!a.date && !b.date) return 0;
     if (!a.date) return 1;

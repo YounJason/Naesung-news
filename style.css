@@ -38,7 +38,7 @@ header{
 }
 
 header > button {
-    
+    height: fit-content;
 }
 
 .container{ width: var(--container-w); margin: 20px auto 60px; }
@@ -73,7 +73,6 @@ header > button {
   padding: 12px 14px 16px;
   display: grid;
   align-content: start;
-  gap: 6px;
 }
 
 .card .title{
@@ -84,6 +83,11 @@ header > button {
 .card .meta{ font-size: 12px; color: #777; }
 
 .card:hover .title{ text-decoration: underline; }
+#meal.card:hover .title {text-decoration: none;}
+
+summary:hover {text-decoration: underline;}
+
+summary {font: 800 20px/1.25 var(--font-strong);}
 
 @media (prefers-reduced-motion: reduce){
   * { transition: none !important; animation: none !important; }

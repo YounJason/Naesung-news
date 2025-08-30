@@ -4,7 +4,7 @@ name: Build JSON index
 on:
   push:
     paths:
-      - "articles/*.md"   # 이 경로의 md가 바뀔 때만 실행해요
+      - "articles/**/*.md"   # 이 경로의 md가 바뀔 때만 실행해요
   workflow_dispatch:        # 수동 실행도 가능해요
 
 permissions:

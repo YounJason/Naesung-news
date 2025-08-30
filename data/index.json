@@ -3,12 +3,7 @@
     "title": "Hello World",
     "slug": "test",
     "path": "articles/test.md",
-    "date": "2025-08-30"
-  },
-  {
-    "title": "Hello World",
-    "slug": "test2",
-    "path": "articles/test2.md",
-    "date": "2025-08-30"
+    "date": "2025-08-30",
+    "author": ""
   }
 ]

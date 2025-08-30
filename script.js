@@ -7,13 +7,13 @@ const load_articles = async () => {
 
 load_articles();
 
-const cardHTML = ({ title, desc, img, time, url}) => `
-    <article class="card" onclick="location.href='${url}'" style="cursor: pointer;">
+const cardHTML = ({ title, desc, img, date, slug}) => `
+    <article class="card" onclick="location.href='${slug}'" style="cursor: pointer;">
         ${img ? `<img class="thumb" alt="" src="${img}">` : ""}
         <div class="content" role="group" aria-label="${title}">
             <h2 class="title">${title}</h2>
             <p class="desc">${desc}</p>
-            <div class="meta">${time}</div>
+            <div class="meta">${date}</div>
         </div>
     </article>
 `;

@@ -7,6 +7,8 @@ const load_articles = async () => {
 
 load_articles();
 
+console.log(ARTICLES);
+
 const cardHTML = ({ title, desc, img, date, slug}) => `
     <article class="card" onclick="location.href='${slug}'" style="cursor: pointer;">
         ${img ? `<img class="thumb" alt="" src="${img}">` : ""}
@@ -18,11 +20,10 @@ const cardHTML = ({ title, desc, img, date, slug}) => `
     </article>
 `;
 
+
 function init() {
     const grid = document.querySelector(".news-grid");
-    for (const article of ARTICLES) {
-        grid.innerHTML += cardHTML(article);
-    }
+    grid.innerHTML += ARTICLES.map(cardHTML).join("");
 }
 
 window.addEventListener("DOMContentLoaded", init);

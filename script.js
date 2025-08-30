@@ -1,12 +1,9 @@
-let ARTICLES;
-
 const load_articles = async () => {
     const res = await fetch(`/data/articles.json`);
-    ARTICLES = await res.json();
+    return await res.json();
 };
 
-load_articles();
-
+let ARTICLES = load_articles();
 console.log(ARTICLES);
 
 const cardHTML = ({ title, desc, img, date, slug}) => `

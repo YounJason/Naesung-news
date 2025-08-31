@@ -1,12 +1,14 @@
 [
   {
     "title": "기사 테스트",
-    "slug": "test1",
-    "path": "articles/test1.md",
+    "slug": "test3",
+    "path": "articles/test3.md",
     "date": "2025-08-31",
     "author": "윤재선",
-    "img": "https://mblogthumb-phinf.pstatic.net/20130312_151/with_pen_1363050275425ffCd3_JPEG/_20130223_233204.jpg?type=w420",
-    "desc": "우리 학교는 “노력, 단결, 전진” 이라는 교훈으로 1981년 개교하여 일만육천여 명의 인재를 배출한 명문학교입니다. 우리학교는 “미래사회를 이끌어갈 창의적 사고력과 조화로운 인성"
+    "img": "https://i.namu.wiki/i/vQ-brA7jAuSE09_V8eXUjQ2kYidxtc1A7INW6PO6fomJ71ciTI55ToRBaTGBrKXvwYvjeCOZfxXNVQ72VH2a4Kxt38CdgYPz8jSKJ4ztORUULCotnaSgCRvqCnPYJKdZRykf7x26ZGqY9tFmrb_7KVn0LQ6-gnJkfMzHGaNMNQ8.webp",
+    "desc": "태평양 거센 물결 막고 막아선/ 우뚝 솟은 반도의 남단에/ 세계를 향하는 웅지의/ 젊음이 모여 있도다/ 자유와 진리에 용감하고/ 예의와 도덕에 삶을 사는/ 내성고등학교 우리 형제들",
+    "committedAt": "2025-08-31T12:32:53+09:00",
+    "firstCommittedAt": "2025-08-31T12:32:53+09:00"
   },
   {
     "title": "기사 테스트",
@@ -15,6 +17,19 @@
     "date": "2025-08-31",
     "author": "윤재선",
     "img": "https://i.ytimg.com/vi/O38i56IVjBs/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGE4gUChlMA8=&rs=AOn4CLANNEyOMhrXVl8BxR6wklQs2wAq6g",
-    "desc": "![에프코드](https://i.ytimg.com/vi/O38i56IVjBs/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AH-CYAC0AW"
+    "desc": "내성고등학교 밴드부 '에프코드'의 멋진 공연을 기대하고 있습니다. 그들의 열정적인 무대가 많은 사람들에게 감동을 줄 것이라고 생각합니다. 밴드부원들의 끊임없는 노력과 연습이 빛을 ",
+    "committedAt": "2025-08-31T11:59:12+09:00",
+    "firstCommittedAt": "2025-08-30T20:59:53+09:00"
+  },
+  {
+    "title": "기사 테스트",
+    "slug": "test1",
+    "path": "articles/test1.md",
+    "date": "2025-08-31",
+    "author": "윤재선",
+    "img": "https://mblogthumb-phinf.pstatic.net/20130312_151/with_pen_1363050275425ffCd3_JPEG/_20130223_233204.jpg?type=w420",
+    "desc": "우리 학교는 “노력, 단결, 전진” 이라는 교훈으로 1981년 개교하여 일만육천여 명의 인재를 배출한 명문학교입니다. 우리학교는 “미래사회를 이끌어갈 창의적 사고력과 조화로운 인성",
+    "committedAt": "2025-08-31T10:42:57+09:00",
+    "firstCommittedAt": "2025-08-30T21:46:32+09:00"
   }
 ]

@@ -1,5 +1,16 @@
 [
   {
+    "title": "안녕하세요 이승민이에요",
+    "slug": "test4",
+    "path": "articles/test4.md",
+    "date": "2025-08-31",
+    "author": "이승민",
+    "img": "/img/lsm_gun.jpg",
+    "desc": "좋은 말로 할때 당장 저에게 300만원을 내놓으세요 ^^",
+    "committedAt": "2025-08-31T23:40:14Z",
+    "firstCommittedAt": "2025-08-31T13:25:39+09:00"
+  },
+  {
     "title": "[테스트] 교가",
     "slug": "test3",
     "path": "articles/test3.md",
@@ -31,16 +42,5 @@
     "desc": "우리 학교는 “노력, 단결, 전진” 이라는 교훈으로 1981년 개교하여 일만육천여 명의 인재를 배출한 명문학교입니다. 우리학교는 “미래사회를 이끌어갈 창의적 사고력과 조화로운 인성",
     "committedAt": "2025-08-31T23:04:15Z",
     "firstCommittedAt": "2025-08-30T21:46:32+09:00"
-  },
-  {
-    "title": "안녕하세요 이승민이에요",
-    "slug": "test4",
-    "path": "articles/test4.md",
-    "date": "2025-08-31",
-    "author": "이승민",
-    "img": "/img/lsm_gun.jpg",
-    "desc": "지금 당장 저에게 300만원을 내놓으세요 ^^",
-    "committedAt": "2025-09-01T00:19:46+09:00",
-    "firstCommittedAt": "2025-08-31T13:25:39+09:00"
   }
 ]

@@ -216,10 +216,34 @@ a:hover {
     text-decoration: underline;
 }
 
+.viewer .desc img,
+.card .desc img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 12px auto;
+}
+
+
 @media (prefers-reduced-motion: reduce) {
     * {
         transition: none !important;
         animation: none !important;
     }
 
+}
+
+@media (max-width: 900px) {
+    .viewer .title {
+        font-size: 28px;
+        line-height: 1.5;
+    }
+
+    .viewer .desc {
+        font-size: 16px;
+    }
+
+    .viewer .meta {
+        font-size: 14px;
+    }
 }

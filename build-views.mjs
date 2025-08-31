@@ -1,56 +1,88 @@
+// build-views.mjs (중요 부분만 발췌/갱신)
 import fs from "fs-extra";
 import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
 
-const SITE_ORIGIN = "https://example.netlify.app";
+const SITE_ORIGIN = process.env.SITE_ORIGIN || "https://example.netlify.app";
 const DIST = "dist";
 const ARTICLES_DIR = "articles";
 const TEMPLATE_PATH = "templates/page.html";
 
 const esc = (s = "") =>
-  String(s).replace(/[&<>"']/g, (c) =>
-    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])
-  );
+  String(s).replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+
+// JSON 인덱스 읽어와서 slug -> 레코드 맵 생성
+function loadIndexMap() {
+  const jsonPath = path.join(process.cwd(), "data", "articles.json");
+  if (!fs.existsSync(jsonPath)) return {};
+  const arr = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
+  const map = {};
+  for (const it of arr) {
+    if (it.slug) map[it.slug] = it;
+  }
+  return map;
+}
+
+// 상대 경로 이미지를 절대 URL로 승격
+function toAbsoluteUrl(u) {
+  if (!u) return null;
+  if (/^https?:\/\//i.test(u)) return u;
+  // '/img/...' 같이 루트 기준이면 SITE_ORIGIN 붙임
+  if (u.startsWith("/")) return SITE_ORIGIN.replace(/\/$/, "") + u;
+  // 상대 경로는 루트 기준으로 처리
+  return SITE_ORIGIN.replace(/\/$/, "") + "/" + u.replace(/^\.\//, "");
+}
 
 async function main() {
-  // 🔑 dist를 깨끗하게 비우고
+  // 1) dist 초기화 + 루트 전체 복사 (v만이 아니라 루트 통째로 복사)
   await fs.emptyDir(DIST);
-
-  // 🔑 루트 파일/폴더를 통째로 dist로 복사
   const exclude = ["articles", "templates", "dist", ".git", "node_modules"];
-  const items = await fs.readdir(process.cwd());
-  for (const item of items) {
-    if (exclude.includes(item)) continue;
-    await fs.copy(item, path.join(DIST, item));
+  for (const item of await fs.readdir(process.cwd())) {
+    if (!exclude.includes(item)) await fs.copy(item, path.join(DIST, item));
   }
-  console.log("📦 루트 파일/폴더 복사 완료");
 
-  // 템플릿 불러오기
+  // 2) 템플릿/인덱스 로드
   const tpl = await fs.readFile(TEMPLATE_PATH, "utf8");
+  const idxBySlug = loadIndexMap();
 
-  // 마크다운 파일 빌드
-  const files = (await fs.readdir(ARTICLES_DIR)).filter((f) =>
-    f.endsWith(".md")
-  );
+  // 3) 각 글 빌드
+  const files = (await fs.readdir(ARTICLES_DIR)).filter((f) => f.endsWith(".md"));
 
   for (const file of files) {
     const slug = path.basename(file, ".md");
     const raw = await fs.readFile(path.join(ARTICLES_DIR, file), "utf8");
-    const { data: meta, content } = matter(raw);
+    const { data: fm, content } = matter(raw);
 
-    const title = meta.title || slug;
-    const author = meta.author || "";
-    const date = meta.date || "";
-    const metaLine = [author ? author + " 기자" : "", date]
+    // a) JSON 인덱스 우선, 없으면 frontmatter/본문에서 보강
+    const idx = idxBySlug[slug] || {};
+    const title = idx.title || fm.title || slug;
+    const author = idx.author || fm.author || "";
+    // desc: JSON → fm.description → 본문 요약
+    const plain = content
+      .replace(/```[\s\S]*?```/g, " ")
+      .replace(/!\[[^\]]*]\([^)]*\)/g, " ")
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+      .replace(/[#>*_`]/g, " ")
+      .replace(/<\/?[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    const description = (idx.desc || fm.description || plain).slice(0, 160);
+    // 이미지: JSON → fm.image → 기본값
+    const image = toAbsoluteUrl(idx.img || fm.image || "/default.jpg");
+    // 날짜: JSON.date → JSON.committedAt → fm.date
+    const published = idx.date || idx.committedAt || fm.date || "";
+    const modified = idx.committedAt || published || "";
+
+    const metaLine = [author ? author + " 기자" : "", idx.date || fm.date || ""]
       .filter(Boolean)
       .join(" · ");
 
+    // b) 본문 HTML
     const bodyHtml = marked.parse(content, { gfm: true });
-    const description =
-      meta.description || content.replace(/\s+/g, " ").slice(0, 120);
-    const image = meta.image || `${SITE_ORIGIN}/default.jpg`;
-    const url = `${SITE_ORIGIN}/v/${encodeURIComponent(slug)}`;
+
+    // c) 템플릿 치환 + OG/트위터/SEO 값 주입
+    const url = `${SITE_ORIGIN.replace(/\/$/, "")}/v/${encodeURIComponent(slug)}`;
 
     const html = tpl
       .replaceAll("${titleSafe}", esc(title))
@@ -59,17 +91,20 @@ async function main() {
       .replaceAll("${metaLine}", esc(metaLine))
       .replaceAll("${bodyHtml}", bodyHtml)
       .replaceAll("${url}", esc(url))
-      .replaceAll("${image}", esc(image));
+      .replaceAll("${image}", esc(image || `${SITE_ORIGIN}/default.jpg`))
+      // 추가: 확장 OG/기사 메타치환용 플레이스홀더(아래 템플릿도 함께 수정)
+      .replaceAll("${ogSiteName}", "내성 신문")
+      .replaceAll("${ogLocale}", "ko_KR")
+      .replaceAll("${articlePublished}", esc(published))
+      .replaceAll("${articleModified}", esc(modified))
+      .replaceAll("${articleAuthor}", esc(author));
 
     const outDir = path.join(DIST, "v", slug);
     await fs.ensureDir(outDir);
     await fs.writeFile(path.join(outDir, "index.html"), html, "utf8");
   }
 
-  console.log("✅ 글 페이지 생성 완료 (dist/v/*).");
+  console.log("✅ OG 데이터(articles.json 우선) 반영 완료.");
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+main().catch((e) => { console.error(e); process.exit(1); });

@@ -7,6 +7,18 @@
     <title>내성 신문</title>
     <link rel="stylesheet" href="style.css" />
     <script defer src="script.js"></script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/"; // 로그인 완료되면 /admin으로 이동
+                    });
+                }
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -37,5 +49,6 @@
         </section>
     </main>
 </body>
+
 
 </html>

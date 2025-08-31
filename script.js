@@ -16,7 +16,7 @@ const cardHTML = ({ title, desc, img, date, slug, author}) => `
         <div class="content" role="group" aria-label="${title}">
             <h2 class="title">${title}</h2>
             <p class="desc">${desc}</p>
-            <div class="meta">${date} · ${author}</div>
+            <div class="meta">${date} · ${author} 기자</div>
         </div>
     </article>
 `;
@@ -51,3 +51,4 @@ const load_meal = async () => {
 
 
 load_meal();
+

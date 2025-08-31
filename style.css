@@ -141,9 +141,11 @@ button>svg {
 }
 
 .card hr {
-  margin: 20px auto;
-  border-top: 1px solid #ddd;
-  width: 97%;
+    margin: 20px auto;
+    border-top: 1px solid #ddd;
+    width: 100%;
+    border: none;
+    border-top: 3px;
 }
 
 #meal.card:hover .title {
@@ -167,6 +169,7 @@ summary {
     }
 
 }
+
 
 
 

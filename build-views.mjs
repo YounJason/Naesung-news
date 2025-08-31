@@ -13,7 +13,7 @@ const esc = (s="") => String(s).replace(/[&<>"']/g, c => ({
 }[c]));
 
 async function main() {
-  await fs.emptyDir(DIST);
+  await fs.emptyDir(path.join(DIST, "v"));
   const tpl = await fs.readFile(TEMPLATE_PATH, "utf8");
 
   const files = (await fs.readdir(ARTICLES_DIR)).filter(f => f.endsWith(".md"));

@@ -10,13 +10,13 @@ load_articles().then(data => {
     init();
 });
 
-const cardHTML = ({ title, desc, img, date, slug}) => `
+const cardHTML = ({ title, desc, img, date, slug, author}) => `
     <article class="card" onclick="location.href='${slug}'" style="cursor: pointer;">
         ${img ? `<img class="thumb" alt="" src="${img}">` : ""}
         <div class="content" role="group" aria-label="${title}">
             <h2 class="title">${title}</h2>
             <p class="desc">${desc}</p>
-            <div class="meta">${date}</div>
+            <div class="meta">${date} · ${author}</div>
         </div>
     </article>
 `;
@@ -48,5 +48,6 @@ const load_meal = async () => {
             document.querySelector("#dinner").innerHTML = data.mealServiceDietInfo[1].row[1].DDISH_NM;
     }
 };
+
 
 load_meal();

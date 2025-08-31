@@ -156,7 +156,7 @@ summary {
   margin: 20px 0;        /* 위아래 여백만 */
   border: none;          /* 기본 입체감 제거 */
   border-top: 1px solid #ddd; /* 원하는 스타일 */
-  width: calc(100% + 28px); /* 좌우 padding 보정 (14px * 2) */
+  width: 80%; /* 좌우 padding 보정 (14px * 2) */
   margin-left: -14px;    /* 왼쪽 패딩 무시 */
 }
 
@@ -167,6 +167,7 @@ summary {
     }
 
 }
+
 
 
 

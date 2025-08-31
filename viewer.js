@@ -105,7 +105,7 @@
     }
     if (TARGETS.meta) {
       const bits = [];
-      if (meta.author) bits.push(meta.author + "기자");
+      if (meta.author) bits.push(meta.author + " 기자");
       if (meta.date) bits.push(meta.date);
       TARGETS.meta.textContent = bits.join(" · ");
     }

@@ -105,7 +105,7 @@ button>svg {
     overflow: hidden;
     box-shadow: var(--shadow);
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto;
 }
 
 .card>.thumb {
@@ -158,4 +158,5 @@ summary {
     }
 
 }
+
 

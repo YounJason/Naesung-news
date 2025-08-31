@@ -224,6 +224,10 @@ a:hover {
     margin: 12px auto;
 }
 
+header p {
+    cursor: pointer;
+}
+
 
 @media (prefers-reduced-motion: reduce) {
     * {
@@ -247,4 +251,8 @@ a:hover {
         font-size: 14px;
     }
 
+    .viewer .desc img,
+    .card .desc img {
+        max-width: 90%;
+    }
 }

@@ -42,16 +42,6 @@ function extractTitle({ data, body }) {
   return m ? m[1].trim() : '';
 }
 
-function gitLatestCommitISO(relPath) {
-  try {
-    const cmd = `git log -1 --format=%cI -- "${relPath}"`;
-    const out = execSync(cmd, { encoding: 'utf8' }).trim();
-    return out || null;
-  } catch {
-    return null;
-  }
-}
-
 function posixPath(p) {
   return p.split(path.sep).join('/');
 }
@@ -88,6 +78,27 @@ function stripMarkdown(text) {
     .trim();
 }
 
+function gitLatestCommitISO(relPath) {
+  try {
+    const cmd = `git log -1 --format=%cI -- "${relPath}"`;
+    const out = execSync(cmd, { encoding: 'utf8' }).trim();
+    return out || null;
+  } catch {
+    return null;
+  }
+}
+
+
+function gitFirstCommitISO(relPath) {
+  try {
+    const cmd = `git log --reverse --format=%cI -- "${relPath}" | head -n 1`;
+    const out = execSync(cmd, { encoding: 'utf8' }).trim();
+    return out || null;
+  } catch {
+    return null;
+  }
+}
+
 function main() {
   if (!fs.existsSync(CONTENT_DIR)) {
     console.error(`No content dir: ${CONTENT_DIR}`);
@@ -108,12 +119,14 @@ function main() {
     const author = data.author || '';
     const img = extractFirstImage(body);
     const desc = stripMarkdown(body).slice(0, 100);
-    return { title, slug, path: rel, date, author, img, desc };
+    const committedAt = gitLatestCommitISO(rel); // ISO 8601 string or null
+    const firstCommittedAt = gitFirstCommitISO(rel);
+    return { title, slug, path: rel, date, author, img, desc, committedAt, firstCommittedAt};
   }).sort((a, b) => {
-    if (!a.date && !b.date) return 0;
-    if (!a.date) return 1;
-    if (!b.date) return -1;
-    return new Date(b.date) - new Date(a.date);
+    if (!a.committedAt && !b.committedAt) return 0;
+    if (!a.committedAt) return 1;
+    if (!b.committedAt) return -1;
+    return new Date(b.committedAt) - new Date(a.committedAt);
   });
 
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(index, null, 2) + '\n', 'utf8');

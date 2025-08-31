@@ -4,7 +4,7 @@ import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
 
-const SITE_ORIGIN = process.env.SITE_ORIGIN || "https://example.netlify.app";
+const SITE_ORIGIN = process.env.SITE_ORIGIN || "https://naesung-news.netlify.app/";
 const DIST = "dist";
 const ARTICLES_DIR = "articles";
 const TEMPLATE_PATH = "templates/page.html";

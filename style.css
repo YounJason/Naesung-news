@@ -67,7 +67,7 @@ header {
 #buttons>button {
     height: calc(var(--header-h) * 0.5);
     width: calc(var(--header-h) * 0.5);
-    margin-left: 10px;
+    margin-right: 10px;
     background-color: transparent;
     border: none;
     border-radius: 50%;
@@ -159,6 +159,7 @@ summary {
     }
 
 }
+
 
 
 

@@ -152,6 +152,10 @@ summary {
     font: 800 20px/1.25 var(--font-strong);
 }
 
+hr {
+    width: max-content;
+}
+
 @media (prefers-reduced-motion: reduce) {
     * {
         transition: none !important;
@@ -159,6 +163,7 @@ summary {
     }
 
 }
+
 
 
 

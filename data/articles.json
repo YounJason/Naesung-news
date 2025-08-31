@@ -1,5 +1,16 @@
 [
   {
+    "title": "[테스트3] 교가",
+    "slug": "test3",
+    "path": "articles/test3.md",
+    "date": "2025-08-31",
+    "author": "윤재선",
+    "img": "https://i.namu.wiki/i/vQ-brA7jAuSE09_V8eXUjQ2kYidxtc1A7INW6PO6fomJ71ciTI55ToRBaTGBrKXvwYvjeCOZfxXNVQ72VH2a4Kxt38CdgYPz8jSKJ4ztORUULCotnaSgCRvqCnPYJKdZRykf7x26ZGqY9tFmrb_7KVn0LQ6-gnJkfMzHGaNMNQ8.webp",
+    "desc": "태평양 거센 물결 막고 막아선 우뚝 솟은 반도의 남단에 세계를 향하는 웅지의 젊음이 모여 있도다 자유와 진리에 용감하고 예의와 도덕에 삶을 사는 내성고등학교 우리 형제들 우리 형제",
+    "committedAt": "2025-08-31T12:46:41+09:00",
+    "firstCommittedAt": "2025-08-31T12:32:53+09:00"
+  },
+  {
     "title": "[테스트2] 밴드부 에프코드",
     "slug": "test2",
     "path": "articles/test2.md",
@@ -20,16 +31,5 @@
     "desc": "우리 학교는 “노력, 단결, 전진” 이라는 교훈으로 1981년 개교하여 일만육천여 명의 인재를 배출한 명문학교입니다. 우리학교는 “미래사회를 이끌어갈 창의적 사고력과 조화로운 인성",
     "committedAt": "2025-08-31T12:45:05+09:00",
     "firstCommittedAt": "2025-08-30T21:46:32+09:00"
-  },
-  {
-    "title": "기사 테스트",
-    "slug": "test3",
-    "path": "articles/test3.md",
-    "date": "2025-08-31",
-    "author": "윤재선",
-    "img": "https://i.namu.wiki/i/vQ-brA7jAuSE09_V8eXUjQ2kYidxtc1A7INW6PO6fomJ71ciTI55ToRBaTGBrKXvwYvjeCOZfxXNVQ72VH2a4Kxt38CdgYPz8jSKJ4ztORUULCotnaSgCRvqCnPYJKdZRykf7x26ZGqY9tFmrb_7KVn0LQ6-gnJkfMzHGaNMNQ8.webp",
-    "desc": "태평양 거센 물결 막고 막아선/ 우뚝 솟은 반도의 남단에/ 세계를 향하는 웅지의/ 젊음이 모여 있도다/ 자유와 진리에 용감하고/ 예의와 도덕에 삶을 사는/ 내성고등학교 우리 형제들",
-    "committedAt": "2025-08-31T12:32:53+09:00",
-    "firstCommittedAt": "2025-08-31T12:32:53+09:00"
   }
 ]

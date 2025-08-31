@@ -69,6 +69,25 @@ function extractFirstImage(body) {
   return undefined;
 }
 
+function stripMarkdown(text) {
+  return text
+    // 이미지 제거 ![alt](url)
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+    // 링크 텍스트만 남기기 [text](url)
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    // 인라인 코드 `code`
+    .replace(/`([^`]+)`/g, '$1')
+    // 헤더 ### Title
+    .replace(/^#+\s+/gm, '')
+    // 굵게/기울임 **text** *text*
+    .replace(/(\*{1,2}|_{1,2})(.*?)\1/g, '$2')
+    // HTML 태그 제거 <tag>
+    .replace(/<\/?[^>]+(>|$)/g, '')
+    // 줄바꿈/공백 정리
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function main() {
   if (!fs.existsSync(CONTENT_DIR)) {
     console.error(`No content dir: ${CONTENT_DIR}`);
@@ -88,7 +107,7 @@ function main() {
     const date = data.date || gitLatestCommitISO(rel) || null;
     const author = data.author || '';
     const img = extractFirstImage(body);
-    const desc = body.trim().replace(/\s+/g, ' ').slice(0, 100);
+    const desc = stripMarkdown(body).slice(0, 100);
     return { title, slug, path: rel, date, author, img, desc };
   }).sort((a, b) => {
     if (!a.date && !b.date) return 0;

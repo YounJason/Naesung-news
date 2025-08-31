@@ -51,5 +51,3 @@ const load_meal = async () => {
 
 
 load_meal();
-
-

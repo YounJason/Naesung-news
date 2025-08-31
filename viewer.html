@@ -4,9 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <title>내성 신문</title>
     <link rel="stylesheet" href="/style.css" />
-    <script defer src="/script.js"></script>
+    <script defer src="/viewer.js"></script>
 </head>
 
 <body>
@@ -15,9 +16,16 @@
     </header>
 
     <main class="container">
+        <a href="/">< 메인으로</a><br><br>
+        <article class="viewer">
+            <div class="content" role="group" aria-label="">
+                <h2 class="title"></h2>
+                <div class="meta"></div>
+                <hr />
+                <p class="desc"></p>
+            </div>
+        </article>
     </main>
 </body>
 
 </html>
-
-

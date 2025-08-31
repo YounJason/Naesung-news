@@ -105,7 +105,7 @@ button>svg {
     overflow: hidden;
     box-shadow: var(--shadow);
     display: grid;
-    grid-template-rows: auto;
+    grid-template-rows: auto 1fr;
 }
 
 .card>.thumb {
@@ -123,11 +123,13 @@ button>svg {
 
 .card .title {
     font: 800 20px/1.25 var(--font-strong);
+    margin-bottom: 0;
 }
 
 .card .desc {
     font-size: 14px;
     color: #444;
+    margin: 0;
 }
 
 .card .meta {
@@ -158,5 +160,6 @@ summary {
     }
 
 }
+
 
 

@@ -61,13 +61,13 @@ header {
 }
 
 #buttons {
-    margin-left: 20px;
+    margin-left: 0px;
 }
 
 #buttons>button {
     height: calc(var(--header-h) * 0.5);
     width: calc(var(--header-h) * 0.5);
-    margin-left: 5px;
+    margin-left: 10px;
     background-color: transparent;
     border: none;
     border-radius: 50%;
@@ -157,4 +157,5 @@ summary {
         transition: none !important;
         animation: none !important;
     }
+
 }

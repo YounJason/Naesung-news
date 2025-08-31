@@ -10,7 +10,9 @@ const ARTICLES_DIR = "articles";
 const TEMPLATE_PATH = "templates/page.html";
 
 const esc = (s = "") =>
-  String(s).replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+  String(s).replace(/[&<>"']/g, (c) =>
+    ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c])
+  );
 
 // JSON 인덱스 읽어와서 slug -> 레코드 맵 생성
 function loadIndexMap() {

@@ -185,7 +185,7 @@ summary {
 }
 
 .viewer .meta {
-    font-size: 12px;
+    font-size: 16px;
     color: #777;
 }
 
@@ -194,6 +194,26 @@ summary {
     border: none;
     border-top: 1.5px solid #000;
     width: 100%;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:link {
+    color: black;
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+    text-decoration: underline;
 }
 
 @media (prefers-reduced-motion: reduce) {

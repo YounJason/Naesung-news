@@ -153,9 +153,9 @@ summary {
 }
 
 .card hr {
-  margin: 20px 0;        /* 위아래 여백만 */
-  border-top: 1px solid #ddd; /* 원하는 스타일 */
-  width: 80%; /* 좌우 padding 보정 (14px * 2) */
+  margin: 20px auto;
+  border-top: 1px solid #ddd;
+  width: 80%;
   }
 
 @media (prefers-reduced-motion: reduce) {
@@ -165,6 +165,7 @@ summary {
     }
 
 }
+
 
 
 

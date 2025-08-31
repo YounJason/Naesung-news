@@ -140,6 +140,12 @@ button>svg {
     text-decoration: underline;
 }
 
+.card hr {
+  margin: 20px auto;
+  border-top: 1px solid #ddd;
+  width: 97%;
+}
+
 #meal.card:hover .title {
     text-decoration: none;
 }
@@ -152,11 +158,7 @@ summary {
     font: 800 20px/1.25 var(--font-strong);
 }
 
-.card hr {
-  margin: 20px auto;
-  border-top: 1px solid #ddd;
-  width: 95%;
-  }
+
 
 @media (prefers-reduced-motion: reduce) {
     * {
@@ -165,6 +167,7 @@ summary {
     }
 
 }
+
 
 
 

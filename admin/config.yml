@@ -1,0 +1,17 @@
+backend:
+  name: git-gateway
+  branch: main   # 커밋 반영할 브랜치
+media_folder: "static/img/uploads" # 이미지 저장 위치
+public_folder: "/img/uploads"
+
+collections:
+  - name: "articles"
+    label: "Articles"
+    folder: "articles"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Author", name: "author", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }

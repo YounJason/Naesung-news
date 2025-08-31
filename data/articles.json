@@ -1,11 +1,11 @@
 [
   {
-    "title": "Test1",
+    "title": "기사 테스트",
     "slug": "test1",
     "path": "articles/test1.md",
     "date": "2025-08-31",
-    "author": "Youn Jason",
-    "img": "https://i.namu.wiki/i/UyTtLwxeUxouEJvzOKmYYbhRLdrxuyB5ds0Hm4roBwK21T5qBnDM6uhubFXPTdomYA55ig2jxjcRAe3gH1z-EpLRS62kFZZUeYeUeri9SYDBkn2G0FxL0ftyMTD5Oz5rTmZOlyCY94dfY9okDA2wtQ.webp",
-    "desc": "Test"
+    "author": "윤재선",
+    "img": "https://mblogthumb-phinf.pstatic.net/20130312_151/with_pen_1363050275425ffCd3_JPEG/_20130223_233204.jpg?type=w420",
+    "desc": "![내성고등학교](https://mblogthumb-phinf.pstatic.net/20130312_151/with_pen_1363050275425ffCd3_JPEG/_201302"
   }
 ]

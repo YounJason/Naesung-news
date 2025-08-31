@@ -1,27 +1,21 @@
-// viewer.js
 (function () {
-  // 기본 설정: /articles/<slug>.md에서 파일을 가져오도록 해요.
-  const MD_BASES = ["/articles/", "/md/", "/"]; // 순차 시도 경로
+  const MD_BASES = ["/articles/", "/md/", "/"];
   const TARGETS = {
     title: document.querySelector(".title"),
     meta: document.querySelector(".meta"),
     body: document.querySelector(".desc"),
   };
 
-  // 1) slug 얻기: ?slug=... 또는 /v/<slug> 형태 모두 지원해요.
   function getSlug() {
     const url = new URL(window.location.href);
     const q = url.searchParams.get("slug");
     if (q) return decodeURIComponent(q.replace(/\.md$/i, ""));
-    // /v/<slug> or /v/<slug>/ 형태
     const m = window.location.pathname.match(/\/v\/([^\/]+)\/?$/i);
     if (m && m[1]) return decodeURIComponent(m[1].replace(/\.md$/i, ""));
-    // 마지막 대안: 경로의 마지막 세그먼트
     const last = window.location.pathname.split("/").filter(Boolean).pop();
     return last ? decodeURIComponent(last.replace(/\.md$/i, "")) : "";
   }
 
-  // 2) Markdown 파일을 순차적으로 시도해서 받아와요.
   async function fetchMarkdown(slug) {
     const tried = [];
     for (const base of MD_BASES) {
@@ -33,7 +27,6 @@
           return { url, text: await res.text() };
         }
       } catch (_) {
-        // 다른 경로 시도
       }
     }
     const err = new Error("Markdown 파일을 찾지 못했어요.");
@@ -41,7 +34,6 @@
     throw err;
   }
 
-  // 3) 프론트매터 추출: --- ... --- 블록을 떼어내고 meta+body 반환해요.
   function extractFrontMatter(raw) {
     const fmRegex = /^---\s*\n([\s\S]*?)\n---\s*\n?/;
     const m = raw.match(fmRegex);
@@ -50,23 +42,19 @@
     const yamlStr = m[1];
     const body = raw.slice(m[0].length);
 
-    // js-yaml이 있으면 최대한 정확히 파싱
     if (window.jsyaml && typeof window.jsyaml.load === "function") {
       try {
         const meta = window.jsyaml.load(yamlStr) || {};
         return { meta, body };
       } catch {
-        // 실패하면 간단 파서로 폴백
       }
     }
-    // 초간단 키:값 파서 (배열/중첩 미지원)
     const meta = {};
     yamlStr.split(/\r?\n/).forEach((line) => {
       const idx = line.indexOf(":");
       if (idx > -1) {
         const key = line.slice(0, idx).trim();
         let val = line.slice(idx + 1).trim();
-        // 양끝 따옴표 제거
         if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
           val = val.slice(1, -1);
         }
@@ -76,23 +64,18 @@
     return { meta, body };
   }
 
-  // 4) Markdown -> HTML 변환: marked가 있으면 활용, 없으면 폴백
   function mdToHtml(markdown) {
     if (window.marked && typeof window.marked.parse === "function") {
-      // marked v5+
       return window.marked.parse(markdown, { gfm: true });
     }
-    // 아주 간단한 폴백: 최소한의 가독성만
     const esc = (s) => s.replace(/[&<>"']/g, (c) => ({
       "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
     }[c]));
-    // 코드블록 보존
     const blocks = [];
     let text = markdown.replace(/```([\s\S]*?)```/g, (_, code) => {
       const idx = blocks.push(code) - 1;
       return `@@BLOCK${idx}@@`;
     });
-    // 간단한 치환들
     text = esc(text)
       .replace(/^######\s+(.*)$/gm, "<h6>$1</h6>")
       .replace(/^#####\s+(.*)$/gm, "<h5>$1</h5>")
@@ -108,7 +91,6 @@
       .replace(/\r?\n/g, "<br>")
       .replace(/^/, "<p>")
       .replace(/$/, "</p>");
-    // 코드블록 복원
     text = text.replace(/@@BLOCK(\d+)@@/g, (_, i) => {
       const code = esc(blocks[Number(i)]);
       return `<pre><code>${code}</code></pre>`;
@@ -116,7 +98,6 @@
     return text;
   }
 
-  // 5) 렌더링
   function render({ meta, html }) {
     if (TARGETS.title) {
       TARGETS.title.textContent = meta.title || "";
@@ -133,7 +114,6 @@
     }
   }
 
-  // 6) 실행
   (async function run() {
     const slug = getSlug();
     if (!slug) {

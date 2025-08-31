@@ -56,6 +56,19 @@ function posixPath(p) {
   return p.split(path.sep).join('/');
 }
 
+// 추가: 본문에서 첫 번째 이미지를 찾아 반환 (없으면 undefined)
+function extractFirstImage(body) {
+  // 1) Markdown 이미지: ![alt](url "title")
+  const mdImg = body.match(/!\[[^\]]*\]\((\S+?)(?:\s+"[^"]*")?\)/);
+  if (mdImg && mdImg[1]) return mdImg[1];
+
+  // 2) HTML 이미지: <img src="url" ...>
+  const htmlImg = body.match(/<img[^>]*src=["']([^"']+)["'][^>]*>/i);
+  if (htmlImg && htmlImg[1]) return htmlImg[1];
+
+  return undefined;
+}
+
 function main() {
   if (!fs.existsSync(CONTENT_DIR)) {
     console.error(`No content dir: ${CONTENT_DIR}`);
@@ -74,7 +87,7 @@ function main() {
     const slug = path.basename(absPath, path.extname(absPath));
     const date = data.date || gitLatestCommitISO(rel) || null;
     const author = data.author || '';
-    const img = data.img || '';
+    const img = extractFirstImage(body);
     const desc = body.trim().replace(/\s+/g, ' ').slice(0, 100);
     return { title, slug, path: rel, date, author, img, desc };
   }).sort((a, b) => {

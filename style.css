@@ -218,7 +218,7 @@ a:hover {
 
 .viewer .desc img,
 .card .desc img {
-    max-width: 100%;
+    max-width: 50%;
     height: auto;
     display: block;
     margin: 12px auto;
@@ -246,4 +246,5 @@ a:hover {
     .viewer .meta {
         font-size: 14px;
     }
+
 }

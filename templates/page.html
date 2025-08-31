@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>${titleSafe} - 내성 신문</title>
+  <link rel="stylesheet" href="/style.css" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="${titleSafe}" />
+  <meta property="og:description" content="${descSafe}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="${url}" />
+  <meta property="og:image" content="${image}" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="${titleSafe}" />
+  <meta name="twitter:description" content="${descSafe}" />
+  <meta name="twitter:image" content="${image}" />
+</head>
+<body>
+  <header>내성 신문</header>
+
+  <main class="container">
+    <a href="/">< 메인으로</a><br><br>
+    <article class="viewer">
+      <div class="content">
+        <h2 class="title">${titleHtml}</h2>
+        <div class="meta">${metaLine}</div>
+        <hr />
+        <div class="desc">${bodyHtml}</div>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

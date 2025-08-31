@@ -88,8 +88,8 @@ const description = idx.desc || fm.description || "";
     const url = `${SITE_ORIGIN.replace(/\/$/, "")}/v/${encodeURIComponent(slug)}`;
 
     const html = tpl
-      .replaceAll("${titleSafe}", esc(title))
-      .replaceAll("${titleHtml}", esc(title) + " - 내성 신문")
+      .replaceAll("${titleSafe}", esc(title) + " - 내성 신문")
+      .replaceAll("${titleHtml}", esc(title))
       .replaceAll("${descSafe}", esc(description))
       .replaceAll("${metaLine}", esc(metaLine))
       .replaceAll("${bodyHtml}", bodyHtml)

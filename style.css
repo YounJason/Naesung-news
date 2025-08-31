@@ -116,7 +116,7 @@ button>svg {
 }
 
 .card>.content {
-    padding: 12px 14px 16px;
+    padding: 12px 20px 16px;
     display: grid;
     align-content: start;
 }
@@ -142,10 +142,9 @@ button>svg {
 
 .card hr {
     margin: 20px auto;
-    border-top: 1px solid #ddd;
-    width: 100%;
     border: none;
-    border-top: 3px;
+    border-top: 1px solid #000;
+    width: 100%;
 }
 
 #meal.card:hover .title {
@@ -169,6 +168,7 @@ summary {
     }
 
 }
+
 
 
 

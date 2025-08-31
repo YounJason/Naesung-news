@@ -85,14 +85,13 @@ async function main() {
     const url = `${SITE_ORIGIN.replace(/\/$/, "")}/v/${encodeURIComponent(slug)}`;
 
     const html = tpl
-      .replaceAll("${titleSafe}", esc(title))
-      .replaceAll("${titleHtml}", esc(title))
+      .replaceAll("${titleSafe}", esc(title) + " - 내성 신문")
+      .replaceAll("${titleHtml}", esc(title) + " - 내성 신문")
       .replaceAll("${descSafe}", esc(description))
       .replaceAll("${metaLine}", esc(metaLine))
       .replaceAll("${bodyHtml}", bodyHtml)
       .replaceAll("${url}", esc(url))
       .replaceAll("${image}", esc(image || `${SITE_ORIGIN}/default.jpg`))
-      // 추가: 확장 OG/기사 메타치환용 플레이스홀더(아래 템플릿도 함께 수정)
       .replaceAll("${ogSiteName}", "내성 신문")
       .replaceAll("${ogLocale}", "ko_KR")
       .replaceAll("${articlePublished}", esc(published))

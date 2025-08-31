@@ -1,7 +1,7 @@
 ---
-title: "[테스트3] 교가"
-date: "2025-08-31"
-author: "윤재선"
+title: "[테스트] 교가"
+date: 2025-08-31
+author: 윤재선
 ---
 
 ![교가](https://i.namu.wiki/i/vQ-brA7jAuSE09_V8eXUjQ2kYidxtc1A7INW6PO6fomJ71ciTI55ToRBaTGBrKXvwYvjeCOZfxXNVQ72VH2a4Kxt38CdgYPz8jSKJ4ztORUULCotnaSgCRvqCnPYJKdZRykf7x26ZGqY9tFmrb_7KVn0LQ6-gnJkfMzHGaNMNQ8.webp)

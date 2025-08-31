@@ -105,13 +105,36 @@
     }
     if (TARGETS.meta) {
       const bits = [];
-      if (meta.author) bits.push(meta.author);
+      if (meta.author) bits.push(meta.author + "기자");
       if (meta.date) bits.push(meta.date);
       TARGETS.meta.textContent = bits.join(" · ");
     }
     if (TARGETS.body) {
       TARGETS.body.innerHTML = html;
     }
+
+    if (meta.title) {
+      const ogTitle = document.createElement("meta");
+      ogTitle.setAttribute("property", "og:title");
+      ogTitle.setAttribute("content", meta.title);
+      document.head.appendChild(ogTitle);
+    }
+    if (meta.description) {
+      const ogDescription = document.createElement("meta");
+      ogDescription.setAttribute("property", "og:description");
+      ogDescription.setAttribute("content", meta.description);
+      document.head.appendChild(ogDescription);
+    }
+    if (meta.image) {
+      const ogImage = document.createElement("meta");
+      ogImage.setAttribute("property", "og:image");
+      ogImage.setAttribute("content", meta.image);
+      document.head.appendChild(ogImage);
+    }
+    const ogUrl = document.createElement("meta");
+    ogUrl.setAttribute("property", "og:url");
+    ogUrl.setAttribute("content", window.location.href);
+    document.head.appendChild(ogUrl);
   }
 
   (async function run() {

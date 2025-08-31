@@ -67,7 +67,8 @@ async function main() {
       .replace(/<\/?[^>]+>/g, " ")
       .replace(/\s+/g, " ")
       .trim();
-    const description = (idx.desc || fm.description || plain).slice(0, 160);
+    // description 처리
+const description = idx.desc || fm.description || "";
     // 이미지: JSON → fm.image → 기본값
     const image = toAbsoluteUrl(idx.img || fm.image || "/default.jpg");
     // 날짜: JSON.date → JSON.committedAt → fm.date

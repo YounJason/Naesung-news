@@ -10,13 +10,13 @@ load_articles().then(data => {
     init();
 });
 
-const cardHTML = ({ title, desc, img, date, slug, author}) => `
+const cardHTML = ({ title, desc, img, committedAt, slug, author }) => `
     <article class="card" onclick="location.href='v/${slug}'" style="cursor: pointer;">
         ${img ? `<img class="thumb" alt="" src="${img}">` : ""}
         <div class="content" role="group" aria-label="${title}">
             <h2 class="title">${title}</h2>
             <p class="desc">${desc}</p>
-            <div class="meta">${date} · ${author} 기자</div>
+            <div class="meta">${committedAt} · ${author} 기자</div>
         </div>
     </article>
 `;

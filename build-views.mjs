@@ -73,11 +73,11 @@ async function main() {
 const description = idx.desc || fm.description || "";
     // 이미지: JSON → fm.image → 기본값
     const image = toAbsoluteUrl(idx.img || fm.image || "/default.jpg");
-    // 날짜: JSON.date → JSON.committedAt → fm.date
-    const published = idx.date || idx.committedAt || fm.date || "";
+    // 날짜: JSON.firstCommittedAt → JSON.committedAt
+    const published = idx.firstCommittedAt || idx.committedAt || "";
     const modified = idx.committedAt || published || "";
 
-    const metaLine = [author ? author + " 기자" : "", idx.date || fm.date || ""]
+    const metaLine = [author ? author + " 기자" : "", idx.committedAt || ""]
       .filter(Boolean)
       .join(" · ");
 

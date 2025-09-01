@@ -1,5 +1,16 @@
 [
   {
+    "title": "안녕하세요 이승민이에요",
+    "slug": "test4",
+    "path": "articles/test4.md",
+    "date": "2025-09-01T10:39:55+09:00",
+    "author": "이승민",
+    "img": "/img/lsm_gun.jpg",
+    "desc": "좋은 말로 할때 당장 저에게 300만원을 내놓으세요 ^^",
+    "committedAt": "2025-09-01T10:39:55+09:00",
+    "firstCommittedAt": "2025-08-31T13:25:39+09:00"
+  },
+  {
     "title": "[테스트] 교가",
     "slug": "test3",
     "path": "articles/test3.md",
@@ -42,16 +53,5 @@
     "desc": "오늘 (2025. 9. 1.(월)) 2025학년도 이성환 교장선생님 취임식이 개최되었다.",
     "committedAt": "2025-09-01T01:00:12Z",
     "firstCommittedAt": "2025-09-01T01:00:12Z"
-  },
-  {
-    "title": "안녕하세요 이승민이에요",
-    "slug": "test4",
-    "path": "articles/test4.md",
-    "date": "2025-08-31",
-    "author": "이승민",
-    "img": "/img/lsm_gun.jpg",
-    "desc": "좋은 말로 할때 당장 저에게 300만원을 내놓으세요 ^^",
-    "committedAt": "2025-08-31T23:40:14Z",
-    "firstCommittedAt": "2025-08-31T13:25:39+09:00"
   }
 ]

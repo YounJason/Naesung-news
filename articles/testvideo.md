@@ -1,0 +1,10 @@
+---
+slug: testvideo
+title: "[테스트] 영상 업로드 테스트 입니다"
+author: 윤재선
+---
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/sO3gO4QKpzs?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer \*; clipboard-write \*; encrypted-media \*; gyroscope \*; picture-in-picture \*; web-share \*;"></iframe></div>
+
+
+
+유튜브 영상

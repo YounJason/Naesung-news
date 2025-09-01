@@ -1,9 +1,18 @@
 [
   {
+    "title": "[사진] 2025학년도 이성환 교장선생님 취임식",
+    "slug": "사진-2025학년도-이성환-교장선생님-취임식",
+    "path": "articles/사진-2025학년도-이성환-교장선생님-취임식.md",
+    "author": "윤재선",
+    "img": "/img/1000020380.jpg",
+    "desc": "오늘 (2025. 9. 1.(월)) 2025학년도 이성환 교장선생님 취임식이 개최되었다.",
+    "committedAt": "2025-09-01T01:48:29Z",
+    "firstCommittedAt": "2025-09-01T01:00:12Z"
+  },
+  {
     "title": "안녕하세요 이승민이에요",
     "slug": "test4",
     "path": "articles/test4.md",
-    "date": "2025-09-01T10:39:55+09:00",
     "author": "이승민",
     "img": "/img/lsm_gun.jpg",
     "desc": "좋은 말로 할때 당장 저에게 300만원을 내놓으세요 ^^",
@@ -14,7 +23,6 @@
     "title": "[테스트] 교가",
     "slug": "test3",
     "path": "articles/test3.md",
-    "date": "2025-09-01T10:39:42+09:00",
     "author": "윤재선",
     "img": "https://i.namu.wiki/i/vQ-brA7jAuSE09_V8eXUjQ2kYidxtc1A7INW6PO6fomJ71ciTI55ToRBaTGBrKXvwYvjeCOZfxXNVQ72VH2a4Kxt38CdgYPz8jSKJ4ztORUULCotnaSgCRvqCnPYJKdZRykf7x26ZGqY9tFmrb_7KVn0LQ6-gnJkfMzHGaNMNQ8.webp",
     "desc": "태평양 거센 물결 막고 막아선 우뚝 솟은 반도의 남단에 세계를 향하는 웅지의 젊음이 모여 있도다 자유와 진리에 용감하고 예의와 도덕에 삶을 사는 내성고등학교 우리 형제들 우리 형제",
@@ -25,7 +33,6 @@
     "title": "[테스트] 밴드부 에프코드",
     "slug": "test2",
     "path": "articles/test2.md",
-    "date": "2025-09-01T10:39:26+09:00",
     "author": "윤재선",
     "img": "https://i.ytimg.com/vi/O38i56IVjBs/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGE4gUChlMA8=&rs=AOn4CLANNEyOMhrXVl8BxR6wklQs2wAq6g",
     "desc": "내성고등학교 밴드부 '에프코드'의 멋진 공연을 기대하고 있습니다. 그들의 열정적인 무대가 많은 사람들에게 감동을 줄 것이라고 생각합니다. 밴드부원들의 끊임없는 노력과 연습이 빛을 ",
@@ -36,22 +43,10 @@
     "title": "[테스트] 내성고등학교 소개글",
     "slug": "test1",
     "path": "articles/test1.md",
-    "date": "2025-09-01T10:39:12+09:00",
     "author": "윤재선",
     "img": "https://mblogthumb-phinf.pstatic.net/20130312_151/with_pen_1363050275425ffCd3_JPEG/_20130223_233204.jpg?type=w420",
     "desc": "우리 학교는 “노력, 단결, 전진” 이라는 교훈으로 1981년 개교하여 일만육천여 명의 인재를 배출한 명문학교입니다. 우리학교는 “미래사회를 이끌어갈 창의적 사고력과 조화로운 인성",
     "committedAt": "2025-09-01T10:39:12+09:00",
     "firstCommittedAt": "2025-08-30T21:46:32+09:00"
-  },
-  {
-    "title": "[사진] 2025학년도 이성환 교장선생님 취임식",
-    "slug": "사진-2025학년도-이성환-교장선생님-취임식",
-    "path": "articles/사진-2025학년도-이성환-교장선생님-취임식.md",
-    "date": "2025-09-01T09:56:00.000+09:00",
-    "author": "윤재선",
-    "img": "/img/uploads/1000020380.jpg",
-    "desc": "오늘 (2025. 9. 1.(월)) 2025학년도 이성환 교장선생님 취임식이 개최되었다.",
-    "committedAt": "2025-09-01T01:00:12Z",
-    "firstCommittedAt": "2025-09-01T01:00:12Z"
   }
 ]

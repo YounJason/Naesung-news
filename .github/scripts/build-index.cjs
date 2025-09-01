@@ -115,13 +115,12 @@ function main() {
     const { data, body } = parseFrontMatter(raw);
     const title = extractTitle({ data, body });
     const slug = path.basename(absPath, path.extname(absPath));
-    const date = data.date || gitLatestCommitISO(rel) || null;
     const author = data.author || '';
     const img = extractFirstImage(body);
     const desc = stripMarkdown(body).slice(0, 100);
     const committedAt = gitLatestCommitISO(rel); // ISO 8601 string or null
     const firstCommittedAt = gitFirstCommitISO(rel);
-    return { title, slug, path: rel, date, author, img, desc, committedAt, firstCommittedAt};
+    return { title, slug, path: rel, author, img, desc, committedAt, firstCommittedAt};
   }).sort((a, b) => {
     if (!a.committedAt && !b.committedAt) return 0;
     if (!a.committedAt) return 1;

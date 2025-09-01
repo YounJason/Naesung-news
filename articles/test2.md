@@ -1,6 +1,5 @@
 ---
 title: "[테스트] 밴드부 에프코드"
-date: 2025-08-31
 author: 윤재선
 ---
 ![에프코드](https://i.ytimg.com/vi/O38i56IVjBs/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGE4gUChlMA8=&rs=AOn4CLANNEyOMhrXVl8BxR6wklQs2wAq6g)

@@ -76,7 +76,15 @@ const description = idx.desc || fm.description || "";
     const published = idx.firstCommittedAt || idx.committedAt || "";
     const modified = idx.committedAt || published || "";
 
-    const metaLine = [author ? author + " 기자" : "", idx.committedAt || ""]
+    const metaLine = [
+      author ? esc(author) + " 기자" : "",
+      published
+        ? `작성일: <time class="time-local" datetime="${esc(published)}">${esc(published)}</time>`
+        : "",
+      modified
+        ? `수정일: <time class="time-local" datetime="${esc(modified)}">${esc(modified)}</time>`
+        : "",
+    ]
       .filter(Boolean)
       .join(" · ");
 
@@ -90,7 +98,7 @@ const description = idx.desc || fm.description || "";
       .replaceAll("${titleSafe}", esc(title) + " - 내성 신문")
       .replaceAll("${titleHtml}", esc(title))
       .replaceAll("${descSafe}", esc(description))
-      .replaceAll("${metaLine}", esc(metaLine))
+      .replaceAll("${metaLine}", metaLine)
       .replaceAll("${bodyHtml}", bodyHtml)
       .replaceAll("${url}", esc(url))
       .replaceAll("${image}", esc(image || `${SITE_ORIGIN}/default.jpg`))

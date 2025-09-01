@@ -176,7 +176,6 @@ summary {
 
 .viewer .title {
     font: 1000 36px/2 var(--font-strong);
-    margin: 0;
 }
 
 .viewer .desc {
@@ -255,4 +254,5 @@ header p {
     .card .desc img {
         max-width: 90%;
     }
+
 }

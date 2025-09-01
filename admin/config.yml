@@ -1,3 +1,6 @@
+locales: ["ko", "en"]
+locale: "ko"
+
 backend:
   name: git-gateway
   branch: main   # 커밋 반영할 브랜치

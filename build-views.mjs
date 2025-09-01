@@ -86,7 +86,7 @@ const description = idx.desc || fm.description || "";
         : "",
     ]
       .filter(Boolean)
-      .join(" · ");
+      .join("<br />");
 
     // b) 본문 HTML
     const bodyHtml = marked.parse(content, { gfm: true });

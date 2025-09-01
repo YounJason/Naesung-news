@@ -13,7 +13,7 @@ editor:
 
 collections:
   - name: "기사"
-    label: false
+    label: "기사"
     folder: "articles"
     create: true
     # 파일명을 slug 필드 값으로 지정

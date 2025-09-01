@@ -1,5 +1,16 @@
 [
   {
+    "title": "[테스트] 밴드부 에프코드",
+    "slug": "test2",
+    "path": "articles/test2.md",
+    "date": "2025-09-01T10:39:26+09:00",
+    "author": "윤재선",
+    "img": "https://i.ytimg.com/vi/O38i56IVjBs/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGE4gUChlMA8=&rs=AOn4CLANNEyOMhrXVl8BxR6wklQs2wAq6g",
+    "desc": "내성고등학교 밴드부 '에프코드'의 멋진 공연을 기대하고 있습니다. 그들의 열정적인 무대가 많은 사람들에게 감동을 줄 것이라고 생각합니다. 밴드부원들의 끊임없는 노력과 연습이 빛을 ",
+    "committedAt": "2025-09-01T10:39:26+09:00",
+    "firstCommittedAt": "2025-08-30T20:59:53+09:00"
+  },
+  {
     "title": "[테스트] 내성고등학교 소개글",
     "slug": "test1",
     "path": "articles/test1.md",
@@ -42,16 +53,5 @@
     "desc": "태평양 거센 물결 막고 막아선 우뚝 솟은 반도의 남단에 세계를 향하는 웅지의 젊음이 모여 있도다 자유와 진리에 용감하고 예의와 도덕에 삶을 사는 내성고등학교 우리 형제들 우리 형제",
     "committedAt": "2025-08-31T23:39:13Z",
     "firstCommittedAt": "2025-08-31T12:32:53+09:00"
-  },
-  {
-    "title": "[테스트] 밴드부 에프코드",
-    "slug": "test2",
-    "path": "articles/test2.md",
-    "date": "2025-08-31",
-    "author": "윤재선",
-    "img": "https://i.ytimg.com/vi/O38i56IVjBs/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGE4gUChlMA8=&rs=AOn4CLANNEyOMhrXVl8BxR6wklQs2wAq6g",
-    "desc": "내성고등학교 밴드부 '에프코드'의 멋진 공연을 기대하고 있습니다. 그들의 열정적인 무대가 많은 사람들에게 감동을 줄 것이라고 생각합니다. 밴드부원들의 끊임없는 노력과 연습이 빛을 ",
-    "committedAt": "2025-08-31T23:38:52Z",
-    "firstCommittedAt": "2025-08-30T20:59:53+09:00"
   }
 ]

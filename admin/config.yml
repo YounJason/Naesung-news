@@ -8,9 +8,12 @@ backend:
 media_folder: "/img" # 이미지 저장 위치
 public_folder: "/img"
 
+editor:
+  preview: false
+
 collections:
-  - name: "articles"
-    label: "Articles"
+  - name: "기사"
+    label: false
     folder: "articles"
     create: true
     # 파일명을 slug 필드 값으로 지정

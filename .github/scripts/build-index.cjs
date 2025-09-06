@@ -16,10 +16,16 @@ const CONTENTS = [
 
 function walk(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
-  return entries.flatMap((entry) => {
+  const files = [];
+  for (const entry of entries) {
     const p = path.join(dir, entry.name);
-    return entry.isDirectory() ? walk(p) : [p];
-  });
+    if (entry.isDirectory()) {
+      files.push(...walk(p));
+    } else {
+      files.push(p);
+    }
+  }
+  return files;
 }
 
 function readFileSafe(p) {

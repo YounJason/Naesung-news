@@ -47,17 +47,41 @@ header {
     display: flex;
     align-items: center;
     padding: 0 20px;
-    z-index: 10;
     color: #fff;
-    font-size: 24px;
-    font-family: var(--font-strong);
+    font: 24px var(--font-strong);
+    background: blue;
+    /* sports일 때 드러날 색 */
+    box-shadow: 0 0 3pt rgba(0, 0, 0, .1);
+}
+
+/* 초기 그라디언트는 overlay 레이어 */
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
     background: linear-gradient(45deg,
             #03A65A 0,
             #03A65A calc(100% - 60px),
             #030A8C calc(100% - 60px) calc(100% - 40px),
             #F2E205 calc(100% - 40px) calc(100% - 20px),
             #D9043D calc(100% - 20px) 100%);
-    box-shadow: 0 0 3pt 3pt rgba(0, 0, 0, 0.1);
+    transition: opacity .5s;
+    pointer-events: none;
+    z-index: 0;
+    /* 콘텐츠 아래에 두지 말고 '기본층'으로 */
+    opacity: 1;
+    /* 처음엔 그라디언트 보임 */
+}
+
+/* 헤더 내부 모든 실제 콘텐츠를 위층으로 올림 */
+header>* {
+    position: relative;
+    z-index: 1;
+}
+
+/* sports가 붙으면 그라디언트를 페이드아웃 → 파란색이 보임 */
+header.sports::before {
+    opacity: 0;
 }
 
 #buttons {
@@ -225,6 +249,23 @@ a:hover {
 
 header p {
     cursor: pointer;
+}
+
+header #line {
+    margin: 0 10px;
+    cursor: default;
+}
+
+#sports {
+    color: gainsboro;
+}
+
+#line {
+    color: gainsboro;
+}
+
+#sports.sports{
+    color: white;
 }
 
 

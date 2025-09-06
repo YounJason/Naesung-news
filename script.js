@@ -37,7 +37,7 @@ function timeAgo(isoString) {
 }
 
 const cardHTML = ({ title, desc, img, committedAt, slug, author}) => `
-    <article class="card" onclick="location.href='v/${slug}'" style="cursor: pointer;">
+    <article class="card" onclick="location.href='https://naesung-news.netlify.app/v/${slug}'" style="cursor: pointer;">
         ${img ? `<img class="thumb" alt="" src="${img}">` : ""}
         <div class="content" role="group" aria-label="${title}">
             <h2 class="title">${title}</h2>
@@ -79,3 +79,15 @@ const load_meal = async () => {
 
 load_meal();
 
+let sports = false;
+
+document.querySelector("#sports").addEventListener("click", () => {
+    sports = !sports;
+    if (sports) {
+        document.querySelector("header").classList.add("sports");
+        document.querySelector("#sports").classList.add("sports");
+    } else {
+        document.querySelector("header").classList.remove("sports");
+        document.querySelector("#sports").classList.remove("sports");
+    }
+});

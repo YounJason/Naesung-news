@@ -1,14 +1,5 @@
 [
   {
-    "title": "테스트",
-    "slug": "test1",
-    "path": "articles/test1.md",
-    "author": "윤재선",
-    "desc": "테스트",
-    "committedAt": "2025-09-06T15:25:37Z",
-    "firstCommittedAt": "2025-08-30T21:46:32+09:00"
-  },
-  {
     "title": "[사진] 2025학년도 이성환 교장선생님 취임식",
     "slug": "250901principal",
     "path": "articles/250901principal.md",

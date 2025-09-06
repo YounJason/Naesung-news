@@ -60,11 +60,11 @@ header::before {
     position: absolute;
     inset: 0;
     background: linear-gradient(45deg,
-            #03A65A 0,
-            #03A65A calc(100% - 60px),
-            #030A8C calc(100% - 60px) calc(100% - 40px),
-            #F2E205 calc(100% - 40px) calc(100% - 20px),
-            #D9043D calc(100% - 20px) 100%);
+            #009F60 0,
+            #009F60 calc(100% - 60px),
+            #303890 calc(100% - 60px) calc(100% - 40px),
+            #F0E000 calc(100% - 40px) calc(100% - 20px),
+            #DF002F calc(100% - 20px) 100%);
     transition: opacity .5s;
     pointer-events: none;
     z-index: 0;

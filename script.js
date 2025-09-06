@@ -1,15 +1,3 @@
-const load_articles = async () => {
-    const res = await fetch(`/data/articles.json`);
-    const articles = await res.json();
-    return articles;
-};
-
-let ARTICLES = [];
-load_articles().then(data => {
-    ARTICLES = data;
-    init();
-});
-
 function timeAgo(isoString) {
   const now = new Date();
   const past = new Date(isoString);
@@ -36,7 +24,31 @@ function timeAgo(isoString) {
   }
 }
 
-const cardHTML = ({ title, desc, img, committedAt, slug, author}) => `
+const load_articles = async () => {
+    const res = await fetch(`/data/articles.json`);
+    const articles = await res.json();
+    return articles;
+};
+
+const load_sports = async () => {
+    const res = await fetch(`/data/sports.json`);
+    const articles = await res.json();
+    return articles;
+};
+
+let ARTICLES = [];
+load_articles().then(data => {
+    ARTICLES = data;
+    init();
+});
+
+let SPORTS_ARTICLES = [];
+load_sports().then(data => {
+    SPORTS_ARTICLES = data;
+    initSports();
+});
+
+const cardHTML = ({ title, desc, img, committedAt, slug, author }) => `
     <article class="card" onclick="location.href='https://naesung-news.netlify.app/v/${slug}'" style="cursor: pointer;">
         ${img ? `<img class="thumb" alt="" src="${img}">` : ""}
         <div class="content" role="group" aria-label="${title}">
@@ -47,10 +59,14 @@ const cardHTML = ({ title, desc, img, committedAt, slug, author}) => `
     </article>
 `;
 
-
 function init() {
     const grid = document.querySelector(".news-grid");
     grid.innerHTML += ARTICLES.map(cardHTML).join("");
+}
+
+function initSports() {
+    const sportsGrid = document.querySelector(".sports-grid");
+    sportsGrid.innerHTML += SPORTS_ARTICLES.map(cardHTML).join("");
 }
 
 window.addEventListener("DOMContentLoaded", init);
@@ -86,8 +102,12 @@ document.querySelector("#sports").addEventListener("click", () => {
     if (sports) {
         document.querySelector("header").classList.add("sports");
         document.querySelector("#sports").classList.add("sports");
+        document.querySelector(".news-grid").classList.add("disabled");
+        document.querySelector(".sports-grid").classList.remove("disabled");
     } else {
         document.querySelector("header").classList.remove("sports");
         document.querySelector("#sports").classList.remove("sports");
+        document.querySelector(".sports-grid").classList.add("disabled");
+        document.querySelector(".news-grid").classList.remove("disabled");
     }
 });

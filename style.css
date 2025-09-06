@@ -117,8 +117,22 @@ button>svg {
     grid-template-columns: repeat(3, 1fr);
 }
 
+.sports-grid {
+    display: grid;
+    gap: var(--gap);
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.disabled {
+    display: none;
+}
+
 @media (max-width: 900px) {
     .news-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sports-grid {
         grid-template-columns: 1fr;
     }
 }
@@ -264,7 +278,7 @@ header #line {
     color: gainsboro;
 }
 
-#sports.sports{
+#sports.sports {
     color: white;
 }
 

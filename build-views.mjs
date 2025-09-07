@@ -6,7 +6,7 @@ import { marked } from "marked";
 
 const SITE_ORIGIN = process.env.SITE_ORIGIN || "https://naesung-news.netlify.app/";
 const DIST = "dist";
-const TEMPLATE_PATH = "templates/page.html";
+const TEMPLATE_PATH = "templates/viewer.html";
 const CATEGORIES = [
   { dir: "articles", json: "articles.json", out: "v" },
   { dir: "sports", json: "sports.json", out: "s" }

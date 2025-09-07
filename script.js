@@ -48,8 +48,8 @@ load_sports().then(data => {
     initSports();
 });
 
-const cardHTML = ({ title, desc, img, committedAt, slug, author }) => `
-    <article class="card" onclick="location.href='https://naesung-news.netlify.app/v/${slug}'" style="cursor: pointer;">
+const cardHTML = ({ title, desc, img, committedAt, slug, author, isSports }) => `
+    <article class="card" onclick="location.href='https://naesung-news.netlify.app/${isSports ? 's' : 'v'}/${slug}'" style="cursor: pointer;">
         ${img ? `<img class="thumb" alt="" src="${img}">` : ""}
         <div class="content" role="group" aria-label="${title}">
             <h2 class="title">${title}</h2>

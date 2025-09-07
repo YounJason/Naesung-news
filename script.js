@@ -48,8 +48,19 @@ load_sports().then(data => {
     initSports();
 });
 
-const cardHTML = ({ title, desc, img, committedAt, slug, author, isSports }) => `
-    <article class="card" onclick="location.href='https://naesung-news.netlify.app/${isSports ? 's' : 'v'}/${slug}'" style="cursor: pointer;">
+const cardHTML = ({ title, desc, img, committedAt, slug, author }) => `
+    <article class="card" onclick="location.href='https://naesung-news.netlify.app/v/${slug}'" style="cursor: pointer;">
+        ${img ? `<img class="thumb" alt="" src="${img}">` : ""}
+        <div class="content" role="group" aria-label="${title}">
+            <h2 class="title">${title}</h2>
+            <p class="desc">${desc}</p>
+            <div class="meta">${author} 기자 · ${timeAgo(committedAt)}</div>
+        </div>
+    </article>
+`;
+
+const sports_cardHTML = ({ title, desc, img, committedAt, slug, author }) => `
+    <article class="card" onclick="location.href='https://naesung-news.netlify.app/s/${slug}'" style="cursor: pointer;">
         ${img ? `<img class="thumb" alt="" src="${img}">` : ""}
         <div class="content" role="group" aria-label="${title}">
             <h2 class="title">${title}</h2>
@@ -66,7 +77,7 @@ function init() {
 
 function initSports() {
     const sportsGrid = document.querySelector(".sports-grid");
-    sportsGrid.innerHTML += SPORTS_ARTICLES.map(cardHTML).join("");
+    sportsGrid.innerHTML += SPORTS_ARTICLES.map(sports_cardHTML).join("");
 }
 
 window.addEventListener("DOMContentLoaded", init);

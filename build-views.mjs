@@ -1,100 +1,119 @@
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+// build-views.mjs (중요 부분만 발췌/갱신)
+import fs from "fs-extra";
+import path from "path";
+import matter from "gray-matter";
+import { marked } from "marked";
 
-function walk(dir) {
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  return entries.flatMap((entry) => {
-    const p = path.join(dir, entry.name);
-    return entry.isDirectory() ? walk(p) : [p];
-  });
-}
+const SITE_ORIGIN = process.env.SITE_ORIGIN || "https://naesung-news.netlify.app/";
+const DIST = "dist";
+const ARTICLES_DIR = "articles";
+const TEMPLATE_PATH = "templates/page.html";
 
-function readFileSafe(p) {
-  try { return fs.readFileSync(p, 'utf8'); } catch { return ''; }
-}
+const esc = (s = "") =>
+  String(s).replace(/[&<>"']/g, (c) =>
+    ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c])
+  );
 
-function parseFrontMatter(raw) {
-  // 시작이 --- 인 블록을 간단 파싱해요
-  if (!raw.startsWith('---')) return { data: {}, body: raw };
-  const end = raw.indexOf('\n---', 3);
-  if (end === -1) return { data: {}, body: raw };
-  const fmBlock = raw.slice(3, end).trim();
-  const body = raw.slice(end + 4);
-  const data = {};
-  for (const line of fmBlock.split('\n')) {
-    const idx = line.indexOf(':');
-    if (idx === -1) continue;
-    const key = line.slice(0, idx).trim();
-    const val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
-@@ -77,59 +74,69 @@ function stripMarkdown(text) {
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function gitLatestCommitISO(relPath) {
-  try {
-    const cmd = `git log -1 --format=%cI -- "${relPath}"`;
-    const out = execSync(cmd, { encoding: 'utf8' }).trim();
-    return out || null;
-  } catch {
-    return null;
+// JSON 인덱스 읽어와서 slug -> 레코드 맵 생성
+function loadIndexMap() {
+  const jsonPath = path.join(process.cwd(), "data", "articles.json");
+  if (!fs.existsSync(jsonPath)) return {};
+  const arr = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
+  const map = {};
+  for (const it of arr) {
+    if (it.slug) map[it.slug] = it;
   }
+  return map;
 }
 
-
-function gitFirstCommitISO(relPath) {
-  try {
-    const cmd = `git log --reverse --format=%cI -- "${relPath}" | head -n 1`;
-    const out = execSync(cmd, { encoding: 'utf8' }).trim();
-    return out || null;
-  } catch {
-    return null;
-  }
+// 상대 경로 이미지를 절대 URL로 승격
+function toAbsoluteUrl(u) {
+  if (!u) return null;
+  if (/^https?:\/\//i.test(u)) return u;
+  // '/img/...' 같이 루트 기준이면 SITE_ORIGIN 붙임
+  if (u.startsWith("/")) return SITE_ORIGIN.replace(/\/$/, "") + u;
+  // 상대 경로는 루트 기준으로 처리
+  return SITE_ORIGIN.replace(/\/$/, "") + "/" + u.replace(/^\.\//, "");
 }
 
-function buildIndex(contentDirName, outputFileName) {
-  const CONTENT_DIR = path.join(process.cwd(), contentDirName);
-  const OUTPUT_FILE = path.join(process.cwd(), 'data', outputFileName);
-
-  if (!fs.existsSync(CONTENT_DIR)) {
-    console.error(`No content dir: ${CONTENT_DIR}`);
-    return;
+async function main() {
+  // 1) dist 초기화 + 루트 전체 복사 (v만이 아니라 루트 통째로 복사)
+  await fs.emptyDir(DIST);
+  const exclude = ["articles", "templates", "dist", ".git", "node_modules"];
+  for (const item of await fs.readdir(process.cwd())) {
+    if (!exclude.includes(item)) await fs.copy(item, path.join(DIST, item));
   }
 
-  const outDir = path.dirname(OUTPUT_FILE);
-  if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
-  
-  const files = walk(CONTENT_DIR).filter((p) => p.toLowerCase().endsWith('.md'));
+  // 2) 템플릿/인덱스 로드
+  const tpl = await fs.readFile(TEMPLATE_PATH, "utf8");
+  const idxBySlug = loadIndexMap();
 
-  const index = files
-    .map((absPath) => {
-      const rel = posixPath(path.relative(process.cwd(), absPath));
-      const raw = readFileSafe(absPath);
-      const { data, body } = parseFrontMatter(raw);
-      const title = extractTitle({ data, body });
-      const slug = path.basename(absPath, path.extname(absPath));
-      const author = data.author || '';
-      const img = extractFirstImage(body);
-      const desc = stripMarkdown(body).slice(0, 100);
-      const committedAt = gitLatestCommitISO(rel); // ISO 8601 string or null
-      const firstCommittedAt = gitFirstCommitISO(rel);
-      return { title, slug, path: rel, author, img, desc, committedAt, firstCommittedAt };
-    })
-    .sort((a, b) => {
-      if (!a.committedAt && !b.committedAt) return 0;
-      if (!a.committedAt) return 1;
-      if (!b.committedAt) return -1;
-      return new Date(b.committedAt) - new Date(a.committedAt);
-    });
+  // 3) 각 글 빌드
+  const files = (await fs.readdir(ARTICLES_DIR)).filter((f) => f.endsWith(".md"));
 
-  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(index, null, 2) + '\n', 'utf8');
-  console.log(`Wrote ${OUTPUT_FILE} with ${index.length} items.`);
+  for (const file of files) {
+    const slug = path.basename(file, ".md");
+    const raw = await fs.readFile(path.join(ARTICLES_DIR, file), "utf8");
+    const { data: fm, content } = matter(raw);
+
+    // a) JSON 인덱스 우선, 없으면 frontmatter/본문에서 보강
+    const idx = idxBySlug[slug] || {};
+    const title = idx.title || fm.title || slug;
+    const author = idx.author || fm.author || "";
+    // desc: JSON → fm.description → 본문 요약
+    const plain = content
+      .replace(/```[\s\S]*?```/g, " ")
+      .replace(/!\[[^\]]*]\([^)]*\)/g, " ")
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+      .replace(/[#>*_`]/g, " ")
+      .replace(/<\/?[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    // description 처리
+const description = idx.desc || fm.description || "";
+    // 이미지: JSON → fm.image → 기본값
+    const image = toAbsoluteUrl(idx.img || fm.image || "/default.jpg");
+    const published = idx.firstCommittedAt || idx.committedAt || "";
+    const modified = idx.committedAt || published || "";
+
+    const metaLine = [
+      author ? esc(author) + " 기자" : "",
+      published
+        ? `작성일: <time class="time-local" datetime="${esc(published)}">${esc(published)}</time>`
+        : "",
+      modified
+        ? `수정일: <time class="time-local" datetime="${esc(modified)}">${esc(modified)}</time>`
+        : "",
+    ]
+      .filter(Boolean)
+      .join("<br />");
+
+    // b) 본문 HTML
+    const bodyHtml = marked.parse(content, { gfm: true });
+
+    // c) 템플릿 치환 + OG/트위터/SEO 값 주입
+    const url = `${SITE_ORIGIN.replace(/\/$/, "")}/v/${encodeURIComponent(slug)}`;
+
+    const html = tpl
+      .replaceAll("${titleSafe}", esc(title) + " - 내성 신문")
+      .replaceAll("${titleHtml}", esc(title))
+      .replaceAll("${descSafe}", esc(description))
+      .replaceAll("${metaLine}", metaLine)
+      .replaceAll("${bodyHtml}", bodyHtml)
+      .replaceAll("${url}", esc(url))
+      .replaceAll("${image}", esc(image || `${SITE_ORIGIN}/default.jpg`))
+      .replaceAll("${ogSiteName}", "내성 신문")
+      .replaceAll("${ogLocale}", "ko_KR")
+      .replaceAll("${articlePublished}", esc(published))
+      .replaceAll("${articleModified}", esc(modified))
+      .replaceAll("${articleAuthor}", esc(author));
+
+    const outDir = path.join(DIST, "v", slug);
+    await fs.ensureDir(outDir);
+    await fs.writeFile(path.join(outDir, "index.html"), html, "utf8");
+  }
+
+  console.log("✅ OG 데이터(articles.json 우선) 반영 완료.");
 }
 
-function main() {
-  buildIndex('articles', 'articles.json');
-  buildIndex('sports', 'sports.json');
-}
-
-main();
+main().catch((e) => { console.error(e); process.exit(1); });

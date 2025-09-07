@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - "articles/**/*.md"   # 이 경로의 md가 바뀔 때만 실행해요
+      - "sports/**/*.md"
   workflow_dispatch:        # 수동 실행도 가능해요
 
 permissions:
@@ -32,8 +33,8 @@ jobs:
           if [[ -n "$(git status --porcelain)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/articles.json
-            git commit -m "chore: update articles.json [skip ci]"
+            git add data/articles.json data/sports.json
+            git commit -m "chore: update json indexes [skip ci]"
             git push
           else
             echo "No changes to commit."

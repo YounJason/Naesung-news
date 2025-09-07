@@ -3,29 +3,15 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const CONTENTS = [
-  {
-    dir: path.join(process.cwd(), 'articles'),
-    out: path.join(process.cwd(), 'data', 'articles.json'),
-  },
-  {
-    dir: path.join(process.cwd(), 'sports'),
-    out: path.join(process.cwd(), 'data', 'sports.json'),
-  },
-];
+const CONTENT_DIR = path.join(process.cwd(), 'articles');
+const OUTPUT_FILE = path.join(process.cwd(), 'data', 'articles.json');
 
 function walk(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
-  const files = [];
-  for (const entry of entries) {
+  return entries.flatMap((entry) => {
     const p = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      files.push(...walk(p));
-    } else {
-      files.push(p);
-    }
-  }
-  return files;
+    return entry.isDirectory() ? walk(p) : [p];
+  });
 }
 
 function readFileSafe(p) {
@@ -113,54 +99,37 @@ function gitFirstCommitISO(relPath) {
   }
 }
 
-function buildIndex(contentDir, outputFile) {
-  if (!fs.existsSync(contentDir)) {
-    console.error(`No content dir: ${contentDir}`);
-    return;
+function main() {
+  if (!fs.existsSync(CONTENT_DIR)) {
+    console.error(`No content dir: ${CONTENT_DIR}`);
+    process.exit(0);
   }
-  const outDir = path.dirname(outputFile);
+  const outDir = path.dirname(OUTPUT_FILE);
   if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
 
-  const files = walk(contentDir).filter((p) => p.toLowerCase().endsWith('.md'));
+  const files = walk(CONTENT_DIR).filter((p) => p.toLowerCase().endsWith('.md'));
 
-  const index = files
-    .map((absPath) => {
-      const rel = posixPath(path.relative(process.cwd(), absPath));
-      const raw = readFileSafe(absPath);
-      const { data, body } = parseFrontMatter(raw);
-      const title = extractTitle({ data, body });
-      const slug = path.basename(absPath, path.extname(absPath));
-      const author = data.author || '';
-      const img = extractFirstImage(body);
-      const desc = stripMarkdown(body).slice(0, 100);
-      const committedAt = gitLatestCommitISO(rel); // ISO 8601 string or null
-      const firstCommittedAt = gitFirstCommitISO(rel);
-      return {
-        title,
-        slug,
-        path: rel,
-        author,
-        img,
-        desc,
-        committedAt,
-        firstCommittedAt,
-      };
-    })
-    .sort((a, b) => {
-      if (!a.committedAt && !b.committedAt) return 0;
-      if (!a.committedAt) return 1;
-      if (!b.committedAt) return -1;
-      return new Date(b.committedAt) - new Date(a.committedAt);
-    });
+  const index = files.map((absPath) => {
+    const rel = posixPath(path.relative(process.cwd(), absPath));
+    const raw = readFileSafe(absPath);
+    const { data, body } = parseFrontMatter(raw);
+    const title = extractTitle({ data, body });
+    const slug = path.basename(absPath, path.extname(absPath));
+    const author = data.author || '';
+    const img = extractFirstImage(body);
+    const desc = stripMarkdown(body).slice(0, 100);
+    const committedAt = gitLatestCommitISO(rel); // ISO 8601 string or null
+    const firstCommittedAt = gitFirstCommitISO(rel);
+    return { title, slug, path: rel, author, img, desc, committedAt, firstCommittedAt};
+  }).sort((a, b) => {
+    if (!a.committedAt && !b.committedAt) return 0;
+    if (!a.committedAt) return 1;
+    if (!b.committedAt) return -1;
+    return new Date(b.committedAt) - new Date(a.committedAt);
+  });
 
-  fs.writeFileSync(outputFile, JSON.stringify(index, null, 2) + '\n', 'utf8');
-  console.log(`Wrote ${outputFile} with ${index.length} items.`);
-}
-
-function main() {
-  for (const { dir, out } of CONTENTS) {
-    buildIndex(dir, out);
-  }
+  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(index, null, 2) + '\n', 'utf8');
+  console.log(`Wrote ${OUTPUT_FILE} with ${index.length} items.`);
 }
 
 main();

@@ -1,4 +1,4 @@
-// build-views.mjs (중요 부분만 발췌/갱신)
+// build-views.mjs
 import fs from "fs-extra";
 import path from "path";
 import matter from "gray-matter";
@@ -6,10 +6,12 @@ import { marked } from "marked";
 
 const SITE_ORIGIN = process.env.SITE_ORIGIN || "https://naesung-news.netlify.app/";
 const DIST = "dist";
-const TEMPLATE_PATH = "templates/viewer.html";
+const DEFAULT_TEMPLATE = "templates/viewer.html"; // ✅ 기본 템플릿 상수로 분리
+
+// ✅ 카테고리별 템플릿 지정 (sports는 sports.html 사용)
 const CATEGORIES = [
-  { dir: "articles", json: "articles.json", out: "v" },
-  { dir: "sports", json: "sports.json", out: "s" }
+  { dir: "articles", json: "articles.json", out: "v", template: "templates/viewer.html" },
+  { dir: "sports",   json: "sports.json",   out: "s", template: "templates/sports.html" }
 ];
 
 const esc = (s = "") =>
@@ -17,7 +19,6 @@ const esc = (s = "") =>
     ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c])
   );
 
-// JSON 인덱스 읽어와서 slug -> 레코드 맵 생성
 function loadIndexMap(jsonFile) {
   const jsonPath = path.join(process.cwd(), "data", jsonFile);
   if (!fs.existsSync(jsonPath)) return {};
@@ -29,29 +30,34 @@ function loadIndexMap(jsonFile) {
   return map;
 }
 
-// 상대 경로 이미지를 절대 URL로 승격
 function toAbsoluteUrl(u) {
   if (!u) return null;
   if (/^https?:\/\//i.test(u)) return u;
-  // '/img/...' 같이 루트 기준이면 SITE_ORIGIN 붙임
   if (u.startsWith("/")) return SITE_ORIGIN.replace(/\/$/, "") + u;
-  // 상대 경로는 루트 기준으로 처리
   return SITE_ORIGIN.replace(/\/$/, "") + "/" + u.replace(/^\.\//, "");
 }
 
 async function main() {
-  // 1) dist 초기화 + 루트 전체 복사 (v만이 아니라 루트 통째로 복사)
+  // 1) dist 초기화 + 루트 전체 복사
   await fs.emptyDir(DIST);
   const exclude = ["articles", "sports", "templates", "dist", ".git", "node_modules"];
   for (const item of await fs.readdir(process.cwd())) {
     if (!exclude.includes(item)) await fs.copy(item, path.join(DIST, item));
   }
 
-  // 2) 템플릿 로드
-  const tpl = await fs.readFile(TEMPLATE_PATH, "utf8");
+  // ❌ (기존) 템플릿을 하나만 읽던 로직 제거
+  // ✅ (변경) 루프 안에서 카테고리별 템플릿을 읽어 사용
   for (const cfg of CATEGORIES) {
     const dir = cfg.dir;
     if (!(await fs.pathExists(dir))) continue;
+
+    // ✅ 카테고리별 템플릿 결정 + 안전한 폴백
+    const tplPath = cfg.template || DEFAULT_TEMPLATE;
+    const tpl = await fs.readFile(
+      (await fs.pathExists(tplPath)) ? tplPath : DEFAULT_TEMPLATE,
+      "utf8"
+    );
+
     const idxBySlug = loadIndexMap(cfg.json);
     const files = (await fs.readdir(dir)).filter((f) => f.endsWith(".md"));
 
@@ -64,7 +70,6 @@ async function main() {
       const idx = idxBySlug[slug] || {};
       const title = idx.title || fm.title || slug;
       const author = idx.author || fm.author || "";
-      // desc: JSON → fm.description → 본문 요약
       const plain = content
         .replace(/```[\s\S]*?```/g, " ")
         .replace(/!\[[^\]]*]\([^)]*\)/g, " ")
@@ -73,12 +78,14 @@ async function main() {
         .replace(/<\/?[^>]+>/g, " ")
         .replace(/\s+/g, " ")
         .trim();
-      // description 처리
-      const description = idx.desc || fm.description || "";
+
+      // desc: JSON → fm.description → (필요 시) plain 120자 트림으로 폴백
+      const description = (idx.desc || fm.description || "").trim() || plain.slice(0, 120);
+
       // 이미지: JSON → fm.image → 기본값
       const image = toAbsoluteUrl(idx.img || fm.image || "/default.jpg");
       const published = idx.firstCommittedAt || idx.committedAt || "";
-      const modified = idx.committedAt || published || "";
+      const modified  = idx.committedAt || published || "";
 
       const metaLine = [
         author ? esc(author) + " 기자" : "",
@@ -88,9 +95,7 @@ async function main() {
         modified
           ? `수정일: <time class="time-local" datetime="${esc(modified)}">${esc(modified)}</time>`
           : "",
-      ]
-        .filter(Boolean)
-        .join("<br />");
+      ].filter(Boolean).join("<br />");
 
       // b) 본문 HTML
       const bodyHtml = marked.parse(content, { gfm: true });
@@ -118,7 +123,7 @@ async function main() {
     }
   }
 
-  console.log("✅ OG 데이터(json 인덱스 우선) 반영 완료.");
+  console.log("✅ 카테고리별 템플릿 적용 및 OG 데이터 반영 완료.");
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

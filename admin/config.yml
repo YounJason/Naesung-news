@@ -22,10 +22,7 @@ collections:
       - label: "File name (slug)"
         name: "slug"
         widget: "lockedSlug"
-        hint: "영어 소문자와 숫자만 입력하세요 (공백/특수문자 불가)<br>Slug는 한 번 입력한 뒤 수정할 수 없습니다"
-        pattern:
-          - "^[a-z0-9]+$"
-          - "영어 소문자와 숫자만 사용할 수 있어요."
+        hint: "파일명은 한 번 입력하면 수정이 불가합니다."
         required: true
 
       - { label: "Title", name: "title", widget: "string" }

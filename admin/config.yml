@@ -19,18 +19,17 @@ collections:
     # 파일명을 slug 필드 값으로 지정
     slug: "{{fields.slug}}"
     fields:
-      - label: "File name (slug)"
+    - label: "File name (slug)"
         name: "slug"
-        widget: "string"
+        widget: "lockedSlug"   # ← 여기만 바꾸면 됩니다
         hint: "영어 소문자와 숫자만 입력하세요 (공백/특수문자 불가)"
         pattern:
           - "^[a-z0-9]+$"
           - "영어 소문자와 숫자만 사용할 수 있어요."
         required: true
-
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Author", name: "author", widget: "string" }
-      - { label: "Body", name: "body", widget: "markdown" }
+    - { label: "Title", name: "title", widget: "string" }
+    - { label: "Author", name: "author", widget: "string" }
+    - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "sports"
     label: "스포츠"

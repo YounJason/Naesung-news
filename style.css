@@ -160,10 +160,6 @@ button>svg {
     margin: 20px;
 }
 
-.card>hr {
-    color: gray;
-}
-
 .card>.content {
     padding: 12px 20px 16px;
     display: grid;
@@ -323,5 +319,6 @@ header #line {
 
 
 }
+
 
 

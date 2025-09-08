@@ -43,5 +43,5 @@ collections:
 
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Author", name: "author", widget: "string" }
-      - { label: "Score", name: "score", widget: "string", required: false, hint: '입력 예시: "O학년 O반:10,O학년 0반:10"'}
+      - { label: "Score", name: "score", widget: "string", required: false, hint: '입력 예시: "O학년 O반:10,O학년 O반:10"'}
       - { label: "Body", name: "body", widget: "markdown" }

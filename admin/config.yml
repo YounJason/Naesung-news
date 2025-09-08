@@ -21,7 +21,7 @@ collections:
     fields:
       - label: "File name (slug)"
         name: "slug"
-        widget: "string"
+        widget: "lockedSlug"
         hint: "영어 소문자와 숫자만 입력하세요 (공백/특수문자 불가)"
         pattern:
           - "^[a-z0-9]+$"
@@ -40,7 +40,7 @@ collections:
     fields:
       - label: "File name (slug)"
         name: "slug"
-        widget: "string"
+        widget: "lockedSlug"
         hint: "영어 소문자와 숫자만 입력하세요 (공백/특수문자 불가)"
         pattern:
           - "^[a-z0-9]+$"

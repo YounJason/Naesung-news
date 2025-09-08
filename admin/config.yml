@@ -50,3 +50,4 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Author", name: "author", widget: "string" }
       - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Score", name: "score", widget: "string", required: false, hint: "작성 예시: |0학년 0반:5|0학년 0반:10|" }

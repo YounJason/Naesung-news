@@ -4,8 +4,9 @@
     "slug": "test1",
     "path": "sports/test1.md",
     "author": "윤재선",
-    "desc": "\\|1-0:5|1-0:10| 스포츠 기사",
-    "committedAt": "2025-09-08T01:39:54Z",
-    "firstCommittedAt": "2025-09-07T00:22:28+09:00"
+    "desc": "스포츠 기사",
+    "committedAt": "2025-09-08T02:25:21Z",
+    "firstCommittedAt": "2025-09-07T00:22:28+09:00",
+    "score": "0학년 0반:10,0학년 0반:5"
   }
 ]

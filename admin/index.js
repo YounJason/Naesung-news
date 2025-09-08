@@ -6,10 +6,17 @@
   }
 
   const LockedSlugControl = (props) => {
-    const value = props.value || "";
-    const onChange = (e) => props.onChange && props.onChange(e.target.value);
+    const {
+      value = "",
+      onChange,
+      forID,
+      classNameWrapper,
+      classNameWidget,
+    } = props;
 
-    // 새 항목 여부(버전 호환 고려)
+    const handleChange = (e) => onChange && onChange(e.target.value);
+
+    // 새 항목 여부 판정
     const entry = props.entry;
     const isNewFromProp = props.isNewEntry === true;
     const isNewFromEntry =
@@ -18,14 +25,15 @@
 
     return h(
       "div",
-      {},
+      { id: forID, className: classNameWrapper },
       h("input", {
         type: "text",
         value,
-        onChange,
-        disabled: !isNew,                // 기존 글이면 잠금!
+        onChange: handleChange,
+        disabled: !isNew,
         placeholder: "영어 소문자와 숫자만",
         pattern: "^[a-z0-9]+$",
+        className: classNameWidget, // CMS 기본 입력창 스타일 적용
       }),
       !isNew &&
         h(

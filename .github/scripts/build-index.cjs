@@ -125,7 +125,10 @@ function buildIndex({ dir, out }) {
       const desc = stripMarkdown(body).slice(0, 100);
       const committedAt = gitLatestCommitISO(rel); // ISO 8601 string or null
       const firstCommittedAt = gitFirstCommitISO(rel);
-      return { title, slug, path: rel, author, img, desc, committedAt, firstCommittedAt };
+      const score = data.score;
+      const item = { title, slug, path: rel, author, img, desc, committedAt, firstCommittedAt };
+      if (score !== undefined) item.score = score;
+      return item;
     })
     .sort((a, b) => {
       if (!a.committedAt && !b.committedAt) return 0;

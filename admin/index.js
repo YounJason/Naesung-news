@@ -1,27 +1,40 @@
-// admin/index.js
-import CMS from "decap-cms-app"; // (혹은 netlify-cms-app)
+(function () {
+  const { CMS, h } = window;
+  if (!CMS || !h) {
+    console.error("[lockedSlug] CMS 또는 h(React.createElement)를 찾을 수 없어요.");
+    return;
+  }
 
-function LockedSlugControl(props) {
-  const value = props.value || "";
-  // Decap/Netlify CMS는 편집기에서 "새 항목인지"를 알려주는 플래그가 있습니다.
-  // 보통 props.isNewEntry 가 전달됩니다. (버전에 따라 entry.get('isNew') 형태일 수 있음)
-  const isNew = props.isNewEntry === true;
+  const LockedSlugControl = (props) => {
+    const value = props.value || "";
+    const onChange = (e) => props.onChange && props.onChange(e.target.value);
 
-  const onChange = (e) => props.onChange?.(e.target.value);
+    // 새 항목 여부(버전 호환 고려)
+    const entry = props.entry;
+    const isNewFromProp = props.isNewEntry === true;
+    const isNewFromEntry =
+      entry && entry.get && (entry.get("newRecord") || entry.get("isNew"));
+    const isNew = Boolean(isNewFromProp || isNewFromEntry);
 
-  return (
-    <div>
-      <input
-        type="text"
-        value={value}
-        onChange={onChange}
-        disabled={!isNew}             // 기존 글이면 잠금!
-        placeholder="영어 소문자와 숫자만"
-        pattern="^[a-z0-9]+$"
-      />
-      {!isNew && <small>이미 저장된 문서예요. 슬러그는 수정할 수 없어요.</small>}
-    </div>
-  );
-}
+    return h(
+      "div",
+      {},
+      h("input", {
+        type: "text",
+        value,
+        onChange,
+        disabled: !isNew,                // 기존 글이면 잠금!
+        placeholder: "영어 소문자와 숫자만",
+        pattern: "^[a-z0-9]+$",
+      }),
+      !isNew &&
+        h(
+          "small",
+          { style: { display: "block", marginTop: "4px", opacity: 0.8 } },
+          "이미 저장된 문서예요. 슬러그는 수정할 수 없어요."
+        )
+    );
+  };
 
-CMS.registerWidget("lockedSlug", LockedSlugControl);
+  CMS.registerWidget("lockedSlug", LockedSlugControl);
+})();

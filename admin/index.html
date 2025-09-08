@@ -6,6 +6,11 @@
   <meta property="og:title" content="기사 관리 - 내성 신문" />
   <script src="https://unpkg.com/netlify-identity-widget@1.9.1/build/netlify-identity-widget.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- admin/index.html -->
+<script>window.CMS_MANUAL_INIT = true;</script>
+<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+<script src="/admin/bundle.js"></script> <!-- 위 index.js를 번들한 결과 -->
+<script>CMS.init();</script>
 </head>
 <body>
   <script>

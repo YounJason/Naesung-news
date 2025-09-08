@@ -156,7 +156,7 @@ button>svg {
 .card>.score {
     width: 100%;
     object-fit: cover;
-    display: block;
+    display: flex;
     margin: 20px;
 }
 
@@ -193,8 +193,7 @@ button>svg {
 }
 
 .gap {
-    display: block;
-    width: auto;
+    flex:1;
 }
 
 #meal.card:hover .title {
@@ -324,6 +323,7 @@ header #line {
 
 
 }
+
 
 
 

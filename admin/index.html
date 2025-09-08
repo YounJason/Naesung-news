@@ -4,18 +4,25 @@
   <meta charset="utf-8" />
   <title>기사 관리 - 내성 신문</title>
   <meta property="og:title" content="기사 관리 - 내성 신문" />
-  <script src="https://unpkg.com/netlify-identity-widget@1.9.1/build/netlify-identity-widget.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- admin/index.html -->
-<script>window.CMS_MANUAL_INIT = true;</script>
-<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-<script src="/admin/bundle.js"></script> <!-- 위 index.js를 번들한 결과 -->
-<script>CMS.init();</script>
+
+  <!-- Netlify Identity (로그인 유지) -->
+  <script src="https://unpkg.com/netlify-identity-widget@1.9.1/build/netlify-identity-widget.js"></script>
+
+  <!-- CMS가 자동 초기화되지 않도록 먼저 선언 -->
+  <script>window.CMS_MANUAL_INIT = true;</script>
+
+  <!-- Decap CMS 본체 -->
+  <script src="https://unpkg.com/decap-cms@latest/dist/decap-cms.js"></script>
+
+  <!-- 우리의 커스텀 위젯 등록 스크립트 -->
+  <script src="/admin/index.js"></script>
 </head>
 <body>
   <script>
+    // Netlify Identity 로그인 후 /admin/으로
     if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
+      window.netlifyIdentity.on("init", (user) => {
         if (!user) {
           window.netlifyIdentity.on("login", () => {
             document.location.href = "/admin/";
@@ -23,7 +30,9 @@
         }
       });
     }
+
+    // 커스텀 위젯 등록이 끝난 뒤 수동 초기화
+    window.CMS?.init();
   </script>
-  <script src="https://unpkg.com/decap-cms@latest/dist/decap-cms.js"></script>
 </body>
 </html>

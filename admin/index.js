@@ -13,8 +13,6 @@
       classNameWidget,
     } = props;
 
-    const handleChange = (e) => onChange && onChange(e.target.value);
-
     // 새 항목 여부 판정
     const entry = props.entry;
     const isNewFromProp = props.isNewEntry === true;
@@ -22,15 +20,20 @@
       entry && entry.get && (entry.get("newRecord") || entry.get("isNew"));
     const isNew = Boolean(isNewFromProp || isNewFromEntry);
 
+    const handleChange = (e) => {
+      // 입력값에서 영어 소문자와 숫자만 남김
+      const filtered = e.target.value.replace(/[^a-z0-9]/g, "");
+      onChange && onChange(filtered);
+    };
+
     return h("input", {
       id: forID,
       type: "text",
       value,
       onChange: handleChange,
       disabled: !isNew,
-      placeholder: "영어 소문자와 숫자만",
-      pattern: "^[a-z0-9]+$",
-      className: classNameWidget, // CMS 기본 input 스타일 유지
+      placeholder: "영어 소문자와 숫자만 입력하세요",
+      className: classNameWidget, // CMS 기본 스타일 유지
     });
   };
 

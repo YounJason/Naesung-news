@@ -59,9 +59,9 @@ const cardHTML = ({ title, desc, img, committedAt, slug, author }) => `
     </article>
 `;
 
-const sports_cardHTML = ({ title, desc, img, committedAt, slug, author }) => `
+const sports_cardHTML = ({ title, desc, img, committedAt, slug, author, score}) => `
     <article class="card" onclick="location.href='https://naesung-news.netlify.app/s/${slug}'" style="cursor: pointer;">
-        ${img ? `<img class="thumb" alt="" src="${img}">` : ""}
+        ${score ? `<div class="thumb">${img}</div>` : ""}
         <div class="content" role="group" aria-label="${title}">
             <h2 class="title">${title}</h2>
             <p class="desc">${desc}</p>
@@ -121,4 +121,5 @@ document.querySelector("#sports").addEventListener("click", () => {
         document.querySelector(".sports-grid").classList.add("disabled");
         document.querySelector(".news-grid").classList.remove("disabled");
     }
+
 });

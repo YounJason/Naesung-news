@@ -193,7 +193,8 @@ button>svg {
 }
 
 .gap {
-    width: max-content;
+    display: block;
+    width: 100%;
 }
 
 #meal.card:hover .title {
@@ -323,6 +324,7 @@ header #line {
 
 
 }
+
 
 
 

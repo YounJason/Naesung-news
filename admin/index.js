@@ -24,7 +24,6 @@
     const isNew = Boolean(isNewFromProp || isNewFromEntry);
 
     return h(
-      "div",
       { id: forID, className: classNameWrapper },
       h("input", {
         type: "text",

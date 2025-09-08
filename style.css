@@ -155,9 +155,9 @@ button>svg {
 
 .card>.score {
     width: 100%;
-    aspect-ratio: 20/9;
     object-fit: cover;
     display: block;
+    margin: 20px
 }
 
 
@@ -320,3 +320,4 @@ header #line {
 
 
 }
+

@@ -61,8 +61,7 @@ const cardHTML = ({ title, desc, img, committedAt, slug, author }) => `
 
 const sports_cardHTML = ({ title, desc, img, committedAt, slug, author, score}) => `
     <article class="card" onclick="location.href='https://naesung-news.netlify.app/s/${slug}'" style="cursor: pointer;">
-        ${score ? `<div class="score">${score}</div><hr />` : ""}
-        <div class="content" role="group" aria-label="${title}">
+        ${score ? `<div class="score">${score}</div><div class="content" role="group" aria-label="${title}"><hr />` : "<div class="content" role="group" aria-label="${title}">"}
             <h2 class="title">${title}</h2>
             <p class="desc">${desc}</p>
             <div class="meta">${author} 기자 · ${timeAgo(committedAt)}</div>
@@ -123,5 +122,6 @@ document.querySelector("#sports").addEventListener("click", () => {
     }
 
 });
+
 
 
